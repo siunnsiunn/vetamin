@@ -1,0 +1,7 @@
+[
+  {"name": "Case_1_Acute_Abdomen", "species": "Canine", "age": 2, "weight": 25.0, "problems": ["Acute Vomiting", "Abdominal Pain"], "crea": 110, "sdma": 12, "pain": [2, 3, 2, 1]},
+  {"name": "Case_2_Senior_Renal", "species": "Feline", "age": 18, "weight": 2.8, "problems": ["PU/PD", "Weight Loss"], "crea": 280, "sdma": 35, "pain": [1, 1, 0, 0]},
+  {"name": "Case_3_Geriatric_Lethargy", "species": "Canine", "age": 12, "weight": 8.5, "problems": ["Lethargy", "Inappetence"], "crea": 180, "sdma": 28, "pain": [3, 3, 3, 3]},
+  {"name": "Case_4_FLUTD_Crisis", "species": "Feline", "age": 5, "weight": 4.2, "problems": ["Dysuria", "Blood in Urine"], "crea": 450, "sdma": 15, "pain": [2, 2, 2, 2]},
+  {"name": "Case_5_Puppy_Foreign_Body", "species": "Canine", "age": 1, "weight": 12.0, "problems": ["Foreign Body Suspect"], "crea": 90, "sdma": 10, "pain": [4, 4, 4, 4]}
+]

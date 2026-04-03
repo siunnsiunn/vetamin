@@ -1,0 +1,57 @@
+{
+  "emergency_meds": [
+    {
+      "name": "Maropitant (Cerenia)",
+      "dose_mg_kg": 1.0,
+      "conc_mg_ml": 10.0,
+      "route": "SC/IV",
+      "notes": "止吐/止噁心"
+    },
+    {
+      "name": "Diazepam",
+      "dose_mg_kg": 0.5,
+      "conc_mg_ml": 5.0,
+      "route": "IV (Slow)",
+      "notes": "抗抽搐。不可肌肉注射，且不可與其他藥物混合。"
+    },
+    {
+      "name": "Midazolam",
+      "dose_mg_kg": 0.5,
+      "conc_mg_ml": 5.0,
+      "route": "IV/IM/IN",
+      "notes": "抗抽搐。IM 吸收良好。"
+    },
+    {
+      "name": "Atipamezole (Antisedan)",
+      "dose_mg_kg": 0.2,
+      "conc_mg_ml": 5.0,
+      "route": "IM preferred",
+      "notes": "Alpha-2 拮抗劑。建議肌肉注射，避免 IV 引起的心動過速。"
+    },
+    {
+      "name": "Atropine (Toxin dose)",
+      "dose_mg_kg": 0.2,
+      "conc_mg_ml": 0.5,
+      "route": "1/4 IV, 3/4 IM/SC",
+      "notes": "針對有機磷中毒。劑量為急診專用，較高。"
+    },
+    {
+      "name": "Lidocaine (Dog Only)",
+      "dose_mg_kg": 2.0,
+      "conc_mg_ml": 20.0,
+      "route": "IV (Slow)",
+      "notes": "針對犬隻心律不整。貓隻需極度慎用或禁用。"
+    },
+    {
+      "name": "Furosemide",
+      "dose_mg_kg": 2.0,
+      "conc_mg_ml": 50.0,
+      "route": "IV/IM",
+      "notes": "針對心因性肺水腫。"
+    }
+  ],
+  "fluids": {
+    "dog_shock_dose_ml_kg": 90.0,
+    "cat_shock_dose_ml_kg": 60.0
+  }
+}

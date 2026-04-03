@@ -1,0 +1,22 @@
+# Liverpool Osteoarthritis in Dogs (LOAD)
+
+## Lifestyle (Score 0-4)
+1. Distance exercised: More than 4km(0) / 3-4km(1) / 2-3km(2) / 1-2km(3) / 0-1km(4)
+2. Number of walks: More than 4(0) / 4(1) / 3(2) / 2(3) / 0-1(4)
+
+## Mobility - Generally (Score 0-4)
+1. General mobility: Very good(0) -> Very poor(4)
+2. Lameness disability: Not at all(0) -> Extremely disabled(4)
+3. Activity level: Extremely active(0) -> Not at all active(4)
+4. Weather effect: No effect(0) -> Extreme effect(4)
+5. Stiffness after lying down: No stiffness(0) -> Extreme stiffness(4)
+
+## Mobility - At Exercise (Score 0-4)
+6. Activity at exercise: Extremely active(0) -> Not at all active(4)
+7. Interest in exercise: Extremely interested(0) -> Not at all interested(4)
+8. Ability to exercise: Very good(0) -> Very poor(4)
+9. Effect of exercise on lameness: No effect(0) -> Extreme effect(4)
+10. Resting during exercise: Never(0) -> Very frequently(4)
+11. Weather effect on ability: No effect(0) -> Extreme effect(4)
+12. Stiffness after exercise: No stiffness(0) -> Extreme stiffness(4)
+13. Lameness effect on ability: No effect(0) -> Extreme effect(4)
