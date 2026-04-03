@@ -1,1 +1,2 @@
 .DS_Store\n__pycache__/\n*.log\n.vet/
+dev_internal/
