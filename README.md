@@ -59,3 +59,18 @@ Vetamin 採用 Python 腳本作為邏輯引擎，所有臨床數據同步至 `~/
 ---
 **Maintained by**: Dr. Jung
 **Tech Stack**: Python, Markdown, gstack workflow.
+
+## 📸 OCR 報告掃描功能說明
+若要使用 `/vet-lab-import` 自動掃描紙本報告，請根據你的作業系統安裝對應依賴：
+
+### 🍎 macOS
+```bash
+pip install ocrmac
+```
+
+### 🪟 Windows / 🐧 Linux
+建議使用 EasyOCR：
+```bash
+pip install easyocr
+```
+*註：第一次執行時會下載約 100MB 的語系模型。*
