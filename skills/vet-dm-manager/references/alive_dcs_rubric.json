@@ -1,0 +1,48 @@
+{
+    "system": "ALIVE Diabetic Clinical Score (DCS)",
+    "source": "iCatCare 2025 Feline Diabetes Consensus Guidelines",
+    "total_score_range": [0, 12],
+    "categories": {
+        "demeanour": {
+            "name": "精神活力 (Demeanour)",
+            "scores": {
+                "0": "Normal / 正常活力",
+                "1": "Mildly lethargic / 輕微嗜睡或活動力下降",
+                "2": "Moderately lethargic / 明顯嗜睡、不願互動",
+                "3": "Severely lethargic or collapsed / 極度虛弱、崩潰"
+            }
+        },
+        "body_weight": {
+            "name": "體重變化 (Body Weight)",
+            "scores": {
+                "0": "Stable (or desired weight loss) / 穩定 (或達到預期減重目標)",
+                "1": "Mild unwanted weight loss or gain / 輕微非預期體重改變",
+                "2": "Moderate unwanted weight loss / 中度非預期體重流失",
+                "3": "Severe weight loss (cachexia) / 嚴重消瘦、惡病質"
+            }
+        },
+        "water_intake": {
+            "name": "飲水量 (Water Intake)",
+            "scores": {
+                "0": "Normal (< 50 ml/kg/day) / 正常",
+                "1": "Mild polydipsia / 輕微多渴",
+                "2": "Moderate polydipsia / 中度多渴",
+                "3": "Severe polydipsia (> 100 ml/kg/day) / 嚴重多渴"
+            }
+        },
+        "urine_output": {
+            "name": "尿量 (Urine Output)",
+            "scores": {
+                "0": "Normal / 正常尿塊大小與頻率",
+                "1": "Mild polyuria / 輕微多尿",
+                "2": "Moderate polyuria / 中度多尿",
+                "3": "Severe polyuria / 嚴重多尿、漏尿或巨大尿塊"
+            }
+        }
+    },
+    "interpretation": {
+        "0-3": "Excellent to Good Control (控制極佳至良好)",
+        "4-7": "Fair Control - Needs Re-evaluation (控制普通 - 需重新評估劑量或飲食)",
+        "8-12": "Poor Control / Unstable - High Risk of Complications (控制不良 / 不穩定狀態 - 高併發症風險)"
+    }
+}
