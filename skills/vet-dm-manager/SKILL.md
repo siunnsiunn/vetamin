@@ -2,12 +2,13 @@
 ## Metadata (English)
 - **ID**: `vet-dm-manager`
 - **Focus**: Feline and Canine Diabetes Mellitus Management
-- **Standard**: iCatCare 2025, FECAVA 2024 (ALIVE), Ettinger's 9th Ed
+- **Primary Standard**: iCatCare 2025 (Feline), FECAVA 2024 (ALIVE), Ettinger's 9th Ed
 - **Actions**: Insulin dosage calculation, U-100 to U-300 transition, DKA bridging
 
 ## Workflow (繁體中文)
-### 1. 診斷校準 (Diagnosis)
-- 使用 `/vet-dm-manager` 根據 ALIVE 共識判定貓 (>270 mg/dL) 或狗 (>200 mg/dL) 的診斷。
+### 1. 診斷與安全紅線 (iCatCare 2025 Safety First)
+- 導入 **2025 iCatCare** 安全機制：血糖低於 **72 mg/dL** 即視為劑量過高，必須立即減量。
+- 捨棄過時的 Somogyi 術語，改採現代「血糖不穩定性」評估。
 ### 2. 起始劑量 (Initial Dose)
 - 呼叫 `scripts/dm_calculator.py` 根據體重與物種獲取建議量。
 ### 3. 藥物轉換 (Insulin Transition)
