@@ -14,9 +14,10 @@
 - 💉 **/vet-dm-manager**: **【NEW】** 糖尿病長期管理（對標 **iCatCare 2025** & **Ettinger's 9th Ed**）。支援 ALIVE DCS 評分與 SGLT2i 監控。
 - 🚨 **/vet-triage**: 急診分診與穩定處置（2024 CVJ 標準）。
 - 📋 **/vet-history**: 結構化病史採集（LCPS 臨床推理框架）。
-- 🧪 **/vet-lab-cross**: **專家級數據判判**（IDEXX 數據 + BSAVA 全書邏輯）。
+- 🧪 **/vet-lab-cross**: **專家級數據判讀**（IDEXX 數據 + BSAVA 全書邏輯）。
 - 📉 **/vet-pain-score**: **全方位疼痛評估**（FGS, UNESP, LOAD, FMPI 等）。
-- 💉 **/vet-anesthesia-protocols**: **臨床麻醉協定**（針對風險分級提供精確用藥與 Crash Sheet）。
+- 💉 **/vet-anesthesia-protocols**: **臨床麻醉協定**（針對風險分級提供精確用藥建議）。
+- 🌿 **/vet-wellness**: 全生命週期健檢與預防醫學。
 - ✍️ **/vet-soap-gen**: **一鍵病歷自動生成**（自動填充精密計算結果）。
 
 ---
@@ -44,17 +45,28 @@ mkdir -p ~/.claude/skills
 ln -s ~/vetamin/skills/* ~/.claude/skills/
 ```
 
+### 💻 Codex 部署
+Codex 系統會自動安裝 `.system` 目錄下的技能。
+1. **手動安裝特定技能**：
+   使用 `$skill-installer` 工具：
+   ```bash
+   $skill-installer install https://github.com/siunnsiunn/vetamin/tree/main/skills/vet-soap-gen
+   ```
+2. **重啟 Codex** 以載入新技能。
+
 ---
 
-## 🛠️ 技術架構：數據閉環 (SSOT)
-Vetamin 採用 Python 腳本作為邏輯引擎，所有臨床數據同步至 `~/.vet/current_patient.json`。系統會自動檢測數據時效（例如體重是否超過 7 天未更新），確保醫療決策的安全性。
+## 🛠️ 技術架構：數據閉環
+Vetamin 採用 Python 腳本作為邏輯引擎，所有計算結果會自動回寫至 `~/.vet/current_patient.json`，確保診斷數據的一致性。系統會自動檢測數據時效（例如體重是否超過 7 天未更新），確保醫療決策的安全性。
 
 ---
 
 ## 🌐 語言架構與開發規範 (Language Architecture)
-1. **Metadata**：全英文。確保 AI 代理人呼叫穩定。
-2. **Workflow**：繁體中文 (Taiwan)。減少診間認知摩擦。
-3. **Medical Logic**：臨床晶晶體 (Medical Chinglish)。保留英文名詞以求精確。
+為了平衡 LLM 的理解精確度與台灣臨床醫師的作業效率，Vetamin 遵循以下**「三層語言規範」**：
+
+1. **Metadata (元數據)**：**全英文**。確保各平台 AI 代理人（Gemini, Claude, Codex）索引與呼叫的穩定性。
+2. **Workflow (工作流說明)**：**繁體中文 (Taiwan)**。減少醫師在忙碌診間的認知摩擦，直覺掌握下一步。
+3. **Medical Logic (醫學邏輯與術語)**：**臨床晶晶體 (Medical Chinglish)**。醫學專有名詞（如 *Azotemia*, *Regenerative*）保留英文以求精確，描述性語句使用繁中。
 
 ---
 **Maintained by**: DVM Siunn
