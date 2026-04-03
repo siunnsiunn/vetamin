@@ -1,0 +1,56 @@
+{
+  "skill_name": "anesthesia-protocols",
+  "evals": [
+    {
+      "id": 0,
+      "name": "hcm-cat-dental",
+      "prompt": "4.5kg 12歲公貓，已知HCM，要做dental cleaning，請幫我做麻醉計畫",
+      "expected_output": "Complete anesthesia checklist for a geriatric HCM cat dental, with HCM-specific drug adjustments, dental nerve blocks, calculated doses from Python script, and monitoring plan",
+      "files": [],
+      "assertions": [
+        {"name": "uses_dose_calculator", "text": "Runs the dose_calculator.py script with --weight 4.5 --species cat"},
+        {"name": "avoids_acepromazine", "text": "Does NOT include acepromazine in premedication (contraindicated in HCM)"},
+        {"name": "includes_esmolol", "text": "Lists esmolol in emergency drugs section (for HCM tachycardia)"},
+        {"name": "dental_nerve_blocks", "text": "Includes dental nerve blocks (infraorbital and/or inferior alveolar) in local analgesia section"},
+        {"name": "checklist_format", "text": "Output is in a printable checklist format with checkbox markers (□) and all 9 sections from the template"},
+        {"name": "calculated_volumes", "text": "Drug entries include both mg dose AND mL volume (not just dose range)"},
+        {"name": "traditional_chinese", "text": "Main text is in 繁體中文 with drug names in English"},
+        {"name": "monitoring_plan", "text": "Monitoring section includes HR, BP, SpO2, ETCO2, temperature with frequencies"}
+      ]
+    },
+    {
+      "id": 1,
+      "name": "healthy-dog-ohe",
+      "prompt": "25kg 2歲米克斯母犬，ASA I，要做OHE，請給我完整的麻醉方案",
+      "expected_output": "Standard anesthesia protocol for healthy young dog OHE with multimodal analgesia, local blocks, and full checklist",
+      "files": [],
+      "assertions": [
+        {"name": "uses_dose_calculator", "text": "Runs the dose_calculator.py script with --weight 25 --species dog"},
+        {"name": "multimodal_analgesia", "text": "Includes at least 2 analgesic modalities (e.g., opioid premedication + local block or NSAID)"},
+        {"name": "local_block_for_ohe", "text": "Includes intraperitoneal splash block or incisional line block for OHE"},
+        {"name": "fluid_rate", "text": "Specifies crystalloid maintenance rate in mL/h (calculated for 25kg)"},
+        {"name": "checklist_format", "text": "Output is in a printable checklist format with checkbox markers (□) and all 9 sections"},
+        {"name": "calculated_volumes", "text": "Drug entries include both mg dose AND mL volume"},
+        {"name": "emergency_drugs", "text": "Emergency section has pre-calculated doses for atropine, epinephrine, and glycopyrrolate"},
+        {"name": "recovery_plan", "text": "Recovery section includes pain assessment timing and post-op analgesic plan"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "ckd-cat-mass-removal",
+      "prompt": "3.2kg 15歲母貓，CKD stage 2 (creatinine 2.1)，左前肢有一個mass要切除，麻醉計畫",
+      "expected_output": "Anesthesia protocol for a geriatric CKD cat with renal-protective drug choices, careful fluid management, and regional analgesia",
+      "files": [],
+      "assertions": [
+        {"name": "uses_dose_calculator", "text": "Runs the dose_calculator.py script with --weight 3.2 --species cat"},
+        {"name": "avoids_nsaids", "text": "Explicitly avoids or warns against NSAIDs due to CKD"},
+        {"name": "renal_considerations", "text": "Mentions renal-protective strategy: avoiding prolonged hypotension, careful fluid management"},
+        {"name": "dose_reduction", "text": "Recommends reduced doses (mentions geriatric dose reduction or uses lower end of dose ranges)"},
+        {"name": "local_regional_block", "text": "Includes a local or regional block for the forelimb (e.g., brachial plexus block or local infiltration)"},
+        {"name": "checklist_format", "text": "Output is in a printable checklist format with checkbox markers (□)"},
+        {"name": "calculated_volumes", "text": "Drug entries include both mg dose AND mL volume"},
+        {"name": "bp_monitoring_emphasis", "text": "Emphasizes blood pressure monitoring (given CKD and hypotension risk)"}
+      ]
+    }
+  ]
+}
