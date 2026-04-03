@@ -1,4 +1,4 @@
-# iCatCare 2025 Diabetes Management Thresholds
+# iCatCare 2025 Feline Diabetes Consensus Guidelines
 
 ## 1. 核心原則：安全性優先 (Safety First)
 - **低血糖警戒線**: < 4 mmol/L (72 mg/dL)。只要數值低於此線，不論是否有症狀，皆視為 **劑量過高 (Over-dosage)**。

@@ -6,13 +6,20 @@
 - **Actions**: Insulin dosage calculation, U-100 to U-300 transition, DKA bridging
 
 ## Workflow (繁體中文)
-### 1. 診斷與安全紅線 (iCatCare 2025 Safety First)
-- 導入 **2025 iCatCare** 安全機制：血糖低於 **72 mg/dL** 即視為劑量過高，必須立即減量。
+### 1. 診斷與臨床評估 (ALIVE DCS & iCatCare 2025)
+- 呼叫 `scripts/dcs_evaluator.py` 根據四大臨床指標（精神、體重、飲水、尿量）進行評分。
+- 分數 $\ge$ 4 分需高度警惕，並評估是否發生 **血糖不穩定 (Brittle State)** 或併發症。
+- 導入 **2025 iCatCare** 安全機制：血糖低於 **72 mg/dL (4 mmol/L)** 即視為劑量過高，必須立即減量。
 - 捨棄過時的 Somogyi 術語，改採現代「血糖不穩定性」評估。
-### 2. 起始劑量 (Initial Dose)
-- 呼叫 `scripts/dm_calculator.py` 根據體重與物種獲取建議量。
+
+### 2. 起始與調整劑量 (Dose Adjustment)
+- 呼叫 `scripts/dm_calculator.py` 根據體重、物種與 **iCatCare 2025** 扣除規則獲取建議量。
+- **低血糖減量**: 若發生低血糖事件，建議立即減量 25-50% 或調降 0.5 - 1.0 IU。
+- **穩定觀察期**: 調整劑量後，必須維持固定劑量 **至少 5-7 天**，禁止 Stop Chasing Numbers。
+
 ### 3. 藥物轉換 (Insulin Transition)
 - 特別支援 **Lantus (U-100)** 轉換為 **Toujeo (U-300)** 的安全協議。
+
 ### 4. 數據回寫 (SSOT Sync)
 - 腳本將自動更新 `~/.vet/current_patient.json` 中的 `management.diabetes` 區塊。
 
