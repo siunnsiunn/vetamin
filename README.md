@@ -51,6 +51,15 @@ Codex 系統會自動安裝 `.system` 目錄下的技能。
 Vetamin 採用 Python 腳本作為邏輯引擎，所有計算結果會自動回寫至 `~/.vet/current_patient.json`，確保診斷數據的一致性。
 
 ---
+
+## 🌐 語言架構與開發規範 (Language Architecture)
+為了平衡 LLM 的理解精確度與台灣臨床醫師的作業效率，Vetamin 遵循以下**「三層語言規範」**：
+
+1. **Metadata (元數據)**：**全英文**。確保各平台 AI 代理人（Gemini, Claude, Codex）索引與呼叫的穩定性。
+2. **Workflow (工作流說明)**：**繁體中文 (Taiwan)**。減少醫師在忙碌診間的認知摩擦，直覺掌握下一步。
+3. **Medical Logic (醫學邏輯與術語)**：**臨床晶晶體 (Medical Chinglish)**。醫學專有名詞（如 *Azotemia*, *Regenerative*）保留英文以求精確，描述性語句使用繁中。
+
+---
 **Maintained by**: Dr. Jung
 **Tech Stack**: Python, Markdown, gstack workflow.
 

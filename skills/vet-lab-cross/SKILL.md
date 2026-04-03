@@ -1,31 +1,23 @@
 ---
 name: vet-lab-cross
-description: Cross-analyze blood work, biochemistry, and urinalysis. Identify patterns (e.g., renal vs. pre-renal) and monitor drug safety (e.g., NSAID red flags). (vet-lab-cross)
+description: Advanced laboratory data interpretation engine using IDEXX standards and BSAVA algorithms.
 ---
 
-# Veterinary Lab Cross-Interpretation Tool (/vet-lab-cross)
+# 🧪 深度檢驗判讀 (Laboratory Cross-Interpretation)
 
-本技能協助醫師進行實驗室數據的 **cross-interpretation**，尋找隱藏的 **clinical patterns**。
+本技能作為臨床數據的「大腦」，負責將原始數值轉化為具備診斷意義的 Pattern。
 
-## 🏥 Clinical Workflow
+## 🏥 臨床工作流 (Workflow)
 
-1.  **Input Data**: 
-    - 讀取 `.vet/current_patient.json` 裡的 `labs` 區塊。
-    - 若無資料，請引導醫師輸入關鍵數值：**CBC (HCT, WBC)**, **Bio (CREA, BUN, ALT, ALKP, ALB)**, **UA (USG, Protein)**。
-2.  **Pattern Recognition & Reasoning**: 
-    - AI 會根據 [lab_patterns.md](references/lab_patterns.md), **IDEXX 標準** ([idexx_ref.md](references/idexx_ref.md)), 以及 **BSAVA 全書專家標準 (Ch 3-12)** 進行深度分析：
-        - **Electrolytes**: 計算 Na/K Ratio (Addison risk) 與 Corrected Calcium (HOGS IN YARD) ([bsava_electrolytes.md](references/bsava_electrolytes.md))。
-        - **Endocrine**: 判讀甲狀腺功能與腎上腺測試 (LDDST/ACTH stim) 組合 ([bsava_endocrine.md](references/bsava_endocrine.md))。
-        - **GI/Urinary**: 分析 B12/Folate 定位與 IRIS 進階腎病分級。
-        - **Liver/Pancreas**: 區分酵素組合模式與 Spec fPL/cPL 判讀。
-        - **Haematology**: 執行全方位的貧血與白血球相解析。
-3.  **Recommendations**:
-    - 提供 **Next Diagnostic Steps** (例如：掃心超、驗 UPC、做膽汁酸測試)。
+1.  **Input Data**: 讀取 `.vet/current_patient.json` 裡的 `labs` 數據。若無數據，請引導醫師輸入關鍵數值 (CBC, Bio, UA)。
+2.  **Pattern Recognition**: 結合 [idexx_ref.md](references/idexx_ref.md) 與 [bsava_*.md](references/) 進行深度分析：
+    - **Erythrocytes**: 執行貧血分類 (Regenerative vs Non-regenerative) 與 RBC Indices 分析。
+    - **Leukocytes**: 辨識 Stress, Excitement 與 Inflammatory Leukograms。
+    - **Organ Function**: 區分肝臟 Hepatocellular vs Cholestatic Patterns，並評估 4 大肝功能指標。
+    - **Renal**: 執行 IRIS 分級與投藥安全性評估。
+3.  **Logical Reasoning**: 呼叫 Python 邏輯引擎（如 `calc_renal_staging.py`）進行精密校正。
+4.  **Reporting**: 輸出判讀摘要，並詢問是否執行 `/vet-soap-gen` 生成病歷。
 
-## ⚙️ Administrative Features
-
-- "要將解析結果存入 **patient record** (執行 **update-labs**) 嗎？"
-- "需要生成一份 **lab-summary** (給飼主看的檢驗報告白話版) 嗎？"
-
-## 📝 Reference
-- [Lab Patterns & Thresholds](references/lab_patterns.md)
+## ⚙️ 核心參考
+- **IDEXX**: 官方物種正常值範圍。
+- **BSAVA**: 第 3-12 章核心病理判讀邏輯。
