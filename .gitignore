@@ -1,4 +1,1 @@
-current_patient.json
-__pycache__/
-*.pyc
-.DS_Store
+.DS_Store\n__pycache__/\n*.log\n.vet/
