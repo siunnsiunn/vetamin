@@ -1,6 +1,6 @@
 # 🐾 Vetamin: Veterinary Clinical Co-pilot Suite (v1.2)
 
-基於 `gstack` 架構開發的獸醫臨床副駕駛系統，旨在減少行政摩擦並提供**基於實證醫學 (Evidence-Based Medicine)** 的臨床推理支援。
+獸醫臨床副駕駛系統，旨在減少行政摩擦並提供**基於實證醫學 (Evidence-Based Medicine)** 的臨床推理支援。
 
 ## 🛡️ Vetamin 臨床邏輯五大硬原則
 為了確保臨床安全，所有 Vetamin 技能均遵循以下開發規範：
@@ -57,8 +57,8 @@ Vetamin 採用 Python 腳本作為邏輯引擎，所有臨床數據同步至 `~/
 3. **Medical Logic**：臨床晶晶體 (Medical Chinglish)。保留英文名詞以求精確。
 
 ---
-**Maintained by**: Dr. Jung
-**Tech Stack**: Python, Markdown, gstack workflow.
+**Maintained by**: DVM Siunn
+**Tech Stack**: Python, Markdown.
 
 ## 📸 OCR 報告掃描功能說明
 若要使用 `/vet-lab-import` 自動掃描紙本報告，請根據你的作業系統安裝對應依賴：
