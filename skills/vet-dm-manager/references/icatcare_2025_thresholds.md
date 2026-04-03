@@ -17,3 +17,7 @@
 - **飲食控制 (Dietary Restriction)**: 嚴格限制碳水化合物 (理想為 $\le$ 12% ME) 可大幅提高緩解機率。
 - **神經病變 (Neuropathy)**: 若已出現糖尿病神經病變 (如：蹠行 plantigrade stance)，則達成緩解的機率較低 (因處於長期高血糖狀態)。
 - **停用致病藥物 (Diabetogenic Drugs)**: 必須盡可能停用所有可能導致糖尿病或胰島素抗性的藥物 (如糖皮質素等)。
+
+## 5. ALIVE 臨床評估與監測標準 (ALIVE Criteria)
+- **ALIVE 糖尿病臨床評分 (Diabetic Clinical Score, DCS)**: 監測的首要任務是評估四項核心臨床指標：**精神活力 (Demeanour)**、**體重 (Body weight)**、**飲水量 (Water intake)**、**尿量 (Urine output)**。總分 0-12 分，分數越低代表控制越佳。應教導飼主記錄這些參數以評估真實的長期控制情況。
+- **ALIVE 正常血糖酮酸血症 (eDKA) 診斷**: 若病患符合 DM 診斷，且出現酮體與酸血症，即使血糖相對正常 (< 250 mg/dL 或 < 14 mmol/L)，仍應被診斷為 eDKA (特別常見於使用 SGLT2i 抑制劑的病患)。
