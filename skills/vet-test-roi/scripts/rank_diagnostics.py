@@ -13,7 +13,7 @@ def load_matrix():
 def rank_diagnostics(problem_key, constraint):
     matrix = load_matrix()
     if not matrix or problem_key not in matrix['presentations']:
-        print(f"❌ 找不到 '{problem_key}' 的 ROI 評估矩陣。請輸入：acute_vomiting_diarrhoea, severe_anaemia_pallor, pu_pd_polyuria_polydipsia, icterus_hepatobiliary, pruritus_skin_lesions, skin_mass_nodule, feline_weight_loss_polyphagia")
+        print(f"❌ 找不到 '{problem_key}' 的 ROI 評估矩陣。請輸入：acute_vomiting_diarrhoea, severe_anaemia_pallor, pu_pd_polyuria_polydipsia, icterus_hepatobiliary, pruritus_skin_lesions, skin_mass_nodule, feline_weight_loss_polyphagia, acute_collapse_seizures, cavitary_effusion")
         return
 
     data = matrix['presentations'][problem_key]
@@ -57,6 +57,6 @@ def rank_diagnostics(problem_key, constraint):
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
-        print("Usage: python3 rank_diagnostics.py [acute_vomiting_diarrhoea|severe_anaemia_pallor|pu_pd_polyuria_polydipsia|icterus_hepatobiliary] [None|LowBudget|Fractious]")
+        print("Usage: python3 rank_diagnostics.py [acute_vomiting_diarrhoea|severe_anaemia_pallor|pu_pd_polyuria_polydipsia|icterus_hepatobiliary|pruritus_skin_lesions|skin_mass_nodule|feline_weight_loss_polyphagia|acute_collapse_seizures|cavitary_effusion] [None|LowBudget|Fractious]")
     else:
         rank_diagnostics(sys.argv[1], sys.argv[2])

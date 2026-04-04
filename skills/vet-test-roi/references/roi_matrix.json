@@ -258,6 +258,88 @@
                 }
             ],
             "defensive_rationale": "高齡貓的體重流失極少是單純的「老了」。未進行 T4 與血壓量測，不僅錯失了可完全治癒的疾病，更可能導致突發性的失明或心衰竭。"
+        },
+        "acute_collapse_seizures": {
+            "comprehensive_standard": [
+                {
+                    "test": "Comprehensive Biochemistry",
+                    "rationale": "排除所有代謝性腦病 (Metabolic encephalopathy) 來源：如肝性腦病 (Hepatic encephalopathy, BUN↓/Chol↓)、嚴重低血糖 (Insulinoma, 幼年低血糖)、低血鈣 (Eclampsia)、高血鉀 (Addison's crisis)。"
+                },
+                {
+                    "test": "Complete Blood Count (CBC)",
+                    "rationale": "排除嚴重貧血導致的缺氧性休克或敗血症。"
+                },
+                {
+                    "test": "Urinalysis & Toxicological Screen",
+                    "rationale": "如教科書 Case 117 誤食抗凍劑 (Ethylene glycol) 引起癲癇，尿檢可見大量 Calcium oxalate 結晶。"
+                }
+            ],
+            "step_down_compromise": [
+                {
+                    "test": "Blood Glucose (BG)",
+                    "rationale": "成本極低。癲癇與休克病患的「首要必做檢查」，排除致死性低血糖。"
+                },
+                {
+                    "test": "Electrolytes (Na, K, iCa)",
+                    "rationale": "快速排除 Addison's (Na:K < 27) 與致命的低血鈣 (Hypocalcaemia)。"
+                },
+                {
+                    "test": "PCV/TS",
+                    "rationale": "快速排除隱性內出血 (如脾臟血管肉瘤破裂)。"
+                }
+            ],
+            "add_on_investigations": [
+                {
+                    "test": "Fasting & Post-prandial Bile Acids (膽酸測試)",
+                    "rationale": "若為年輕動物且基礎生化正常，高度懷疑門脈分流 (PSS) 引起的肝性腦病。"
+                },
+                {
+                    "test": "MRI & CSF Analysis",
+                    "rationale": "若血檢與毒物皆正常，懷疑原發性腦部結構異常或腦炎 (GME, NME)。"
+                }
+            ],
+            "defensive_rationale": "癲癇與休克的病因極為廣泛，從單純的低血糖到致命的中毒與腦瘤皆有可能。在未排除低血糖與電解質異常前，盲目給予抗抽搐藥 (如 Diazepam) 或類固醇是絕對禁忌。若家長預算有限，至少必須驗血糖與電解質以保命。"
+        },
+        "cavitary_effusion": {
+            "comprehensive_standard": [
+                {
+                    "test": "Fluid Analysis & Cytology (體液分析與細胞學)",
+                    "rationale": "區分 Transudate (漏出液, 如低白蛋白), Modified Transudate (如心衰竭, 門脈高壓), 或 Exudate (滲出液, 如 FIP, 膿胸, 腫瘤)。這是改變決策的最關鍵檢查。"
+                },
+                {
+                    "test": "Comprehensive Biochemistry",
+                    "rationale": "評估是否有嚴重的低白蛋白血症 (Hypoalbuminaemia) 或肝腎衰竭。"
+                },
+                {
+                    "test": "Imaging (Ultrasound / Radiographs)",
+                    "rationale": "尋找積水來源 (如心臟結構異常、腹腔腫瘤、肝臟硬化)。"
+                }
+            ],
+            "step_down_compromise": [
+                {
+                    "test": "TFAST / AFAST (重點超音波)",
+                    "rationale": "無須鎮靜，能立即確認積液位置並引導安全抽水 (Thoracocentesis / Abdominocentesis)，緩解呼吸困難。"
+                },
+                {
+                    "test": "Fluid Cytology & TP/TNCC (體液細胞學與總蛋白/總細胞數)",
+                    "rationale": "只需將抽出的水滴在玻片上染色，成本極低，但能立刻確診是否為內出血 (Haemoabdomen)、膿胸 (Pyothorax) 或 FIP (高蛋白低細胞)。"
+                },
+                {
+                    "test": "PCV/TS",
+                    "rationale": "評估病患本身的貧血與脫水狀況。"
+                }
+            ],
+            "add_on_investigations": [
+                {
+                    "test": "Fluid Triglycerides vs Serum Triglycerides",
+                    "rationale": "若抽出乳白色液體，用於確診乳糜胸 (Chylothorax)。"
+                },
+                {
+                    "test": "Fluid Creatinine vs Serum Creatinine",
+                    "rationale": "若懷疑膀胱破裂 (Uroabdomen)，積液的 CREA 會大於血清的 2 倍。"
+                }
+            ],
+            "defensive_rationale": "面對有體腔積液的病患，單憑理學檢查或甚至 X 光都無法得知「水裡有什麼」。未進行體液分析與細胞學檢查，極易誤判病因（例如將致命的膿胸誤認為單純心衰竭而給予利尿劑，將加速病患死亡）。"
         }
     }
 }
