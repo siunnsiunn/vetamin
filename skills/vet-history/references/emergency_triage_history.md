@@ -22,3 +22,4 @@ When a patient arrives in potential crisis, ask these critical questions immedia
 - **Gastrointestinal**: Retching without vomiting (GDV concern)? Frequency of vomiting/diarrhea?
 - **Neurological**: Ability to walk? Mentation changes? Cluster seizures?
 - **Obstetrical**: Active labor duration? Visible fetal parts?
+
