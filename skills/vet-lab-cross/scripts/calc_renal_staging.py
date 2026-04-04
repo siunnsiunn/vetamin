@@ -1,22 +1,10 @@
 import sys
 import os
-import json
 
-# 引入 data_manager 邏輯
-VET_DIR = os.path.expanduser("~/.vet")
-CURRENT_PATIENT_FILE = os.path.join(VET_DIR, "current_patient.json")
-
-def save_to_json(category, key, value):
-    if os.path.exists(CURRENT_PATIENT_FILE):
-        with open(CURRENT_PATIENT_FILE, 'r') as f:
-            data = json.load(f)
-        if category not in data: data[category] = {}
-        data[category][key] = value
-        with open(CURRENT_PATIENT_FILE, 'w') as f:
-            json.dump(data, f, indent=2)
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../core')))
+import data_manager
 
 def get_iris_stage(species, crea, sdma=None):
-    # ... (原有邏輯不變)
     species = species.lower()
     stage = 0
     if species == "feline":
@@ -50,5 +38,5 @@ if __name__ == "__main__":
         output = f"IRIS CKD Result: Stage {result}"
         print(output)
         # 自動回寫
-        save_to_json("meta", "renal_interpretation", output)
-        save_to_json("labs", "iris_stage", result)
+        data_manager.update_data("meta.renal_interpretation", output)
+        data_manager.update_data("labs.iris_stage", result)

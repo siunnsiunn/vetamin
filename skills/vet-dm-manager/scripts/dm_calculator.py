@@ -1,8 +1,10 @@
 import sys
-import json
 import os
 import math
 from datetime import datetime
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../core')))
+import data_manager
 
 def clinical_round(value, step=0.5):
     return round(value / step) * step
@@ -62,25 +64,12 @@ def calculate_modern_dm_logic(species, current_dose, weight_kg, nadir_bg, peak_b
     return suggested_dose, " | ".join(recommendation), alert
 
 def update_ssot_v1_2(species, dose, nadir, rec, alert):
-    patient_file = os.path.expanduser("~/.vet/current_patient.json")
     try:
-        if os.path.exists(patient_file):
-            with open(patient_file, 'r') as f:
-                data = json.load(f)
-        else:
-            data = {}
-        
-        data["management"] = data.get("management", {})
-        data["management"]["diabetes"] = {
-            "version": "V1.2 Modernized",
-            "evidence": "Ettinger's 9th Ed (2021) & iCatCare 2025",
-            "calculated_dose_iu": dose,
-            "clinical_guidance": rec,
-            "timestamp": datetime.now().isoformat()
-        }
-        
-        with open(patient_file, 'w') as f:
-            json.dump(data, f, indent=4)
+        data_manager.update_data("management.diabetes.version", "V1.2 Modernized")
+        data_manager.update_data("management.diabetes.evidence", "Ettinger's 9th Ed (2021) & iCatCare 2025")
+        data_manager.update_data("management.diabetes.calculated_dose_iu", dose)
+        data_manager.update_data("management.diabetes.clinical_guidance", rec)
+        data_manager.update_data("management.diabetes.timestamp", datetime.now().isoformat())
         
         print(f"\n=== [Clinical Copilot V1.2] 現代化實證版本 ===")
         print(f"核心變動: 徹底移除 Somogyi 術語，改採 Glycemic Variability 框架。")

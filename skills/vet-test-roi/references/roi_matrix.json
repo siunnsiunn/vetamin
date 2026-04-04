@@ -1,0 +1,425 @@
+{
+    "presentations": {
+        "acute_vomiting_diarrhoea": {
+            "comprehensive_standard": [
+                {
+                    "test": "Comprehensive Biochemistry",
+                    "rationale": "排除致命代謝異常。如 Case 3 中，持續嘔吐伴隨嚴重的低血鈉、低血氯與高血鉀 (Na:K = 16:1)，確診為 Addison's Disease；Case 116 中，嘔吐伴隨極度高 BUN/CREA，確診為抗凍劑中毒 (Ethylene Glycol)。"
+                },
+                {
+                    "test": "Complete Blood Count (CBC)",
+                    "rationale": "評估發炎反應、感染或敗血症 (如 Left shift, Toxic change)，以及潛在的貧血或血小板低下。"
+                },
+                {
+                    "test": "Urinalysis (尿液分析) 與 USG",
+                    "rationale": "區分脫水 (Pre-renal) 與真正的腎衰竭 (Renal)。如 Case 3 在嚴重脫水 (7%) 下 USG 僅有 1.021，高度暗示腎臟濃縮功能異常或缺乏 Aldosterone。"
+                },
+                {
+                    "test": "Abdominal Radiographs / Ultrasound",
+                    "rationale": "確認是否有機械性阻塞 (Mechanical obstruction)、異物或遊離液體。"
+                }
+            ],
+            "step_down_compromise": [
+                {
+                    "test": "Venous Blood Gas (VBG) + Electrolytes",
+                    "rationale": "評估酸鹼平衡與血鉀、血鈉，預防致命性的電解質失衡。"
+                },
+                {
+                    "test": "PCV / TS 與 Blood Glucose",
+                    "rationale": "評估脫水程度、排除腸胃道大出血與敗血性低血糖。"
+                }
+            ],
+            "add_on_investigations": [
+                {
+                    "test": "cPLI / fPLI (胰臟炎特異性脂肪酶)",
+                    "rationale": "若基礎生化顯示肝膽酵素上升，且超音波懷疑胰臟周圍回音性改變，用於確診急性胰臟炎。"
+                },
+                {
+                    "test": "Basal Cortisol / ACTH Stimulation",
+                    "rationale": "若發現 Na:K ratio < 27 或缺乏壓力性白血球相 (Lack of stress leucogram)，用於確診 Addison's Disease。"
+                }
+            ],
+            "defensive_rationale": "在嘔吐病例中，跳過基礎生化與尿檢，極易漏診致命的腎衰竭、Addison's Disease 或嚴重電解質異常。若家長拒絕，必須告知其猝死風險並記錄於病歷。",
+            "low_value_stop_doing": [
+                {
+                    "item": "Empirical Metronidazole",
+                    "rationale": "Choosing Wisely 2025: 對急性腹瀉無顯著臨床效益，且可能破壞腸道菌叢並增加抗藥性。"
+                },
+                {
+                    "item": "Routine Antibiotics for URI/Diarrhea",
+                    "rationale": "多為自限性或病毒性，無系統性症狀不建議使用。"
+                }
+            ]
+        },
+        "severe_anaemia_pallor": {
+            "comprehensive_standard": [
+                {
+                    "test": "Complete Blood Count (CBC) with Reticulocyte Count",
+                    "rationale": "精確量化貧血嚴重度，並評估骨髓是否具備再生能力 (Regeneration)。"
+                },
+                {
+                    "test": "Blood Smear Review (血抹片人工判讀)",
+                    "rationale": "尋找 Spherocytes (球形紅血球, IMHA特徵)、Schistocytes (碎裂紅血球, DIC/血管內溶血特徵)、或血液寄生蟲 (如 Babesia, Mycoplasma)。如 Case 6 中發現 Autoagglutination 1+。"
+                },
+                {
+                    "test": "Comprehensive Biochemistry",
+                    "rationale": "評估是否有肝膽疾病、腎衰竭引起的非再生性貧血，或內出血造成的蛋白質流失。"
+                },
+                {
+                    "test": "Saline Agglutination Test (SAT)",
+                    "rationale": "區分真正的自體凝集 (Autoagglutination, 代表 IMHA) 與單純的錢幣狀排列 (Rouleaux)。"
+                }
+            ],
+            "step_down_compromise": [
+                {
+                    "test": "PCV / TS",
+                    "rationale": "快速評估是否需要緊急輸血，以及是否有合併蛋白質流失。"
+                },
+                {
+                    "test": "Blood Smear Review",
+                    "rationale": "不需昂貴儀器，但能提供極高診斷價值的形態學資訊。"
+                }
+            ],
+            "add_on_investigations": [
+                {
+                    "test": "Infectious Disease PCR / Serology",
+                    "rationale": "如貓的 FeLV/FIV, Mycoplasma haemofelis，狗的 Babesia, Ehrlichia。"
+                },
+                {
+                    "test": "Coagulation Profile (PT/aPTT/D-dimer)",
+                    "rationale": "若懷疑失血是由於凝血功能障礙 (如殺鼠藥中毒或 DIC)。"
+                }
+            ],
+            "defensive_rationale": "未進行網織紅血球計數與血抹片判讀，將無法區分失血、溶血與骨髓衰竭，可能導致給予錯誤的治療 (如誤將 IMHA 當成感染而延誤免疫抑制劑)。"
+        },
+        "pu_pd_polyuria_polydipsia": {
+            "comprehensive_standard": [
+                {
+                    "test": "Comprehensive Biochemistry",
+                    "rationale": "篩檢最常見的原因：慢性腎病 (CREA/BUN ↑)、糖尿病 (Glucose ↑)、肝衰竭 (BUN ↓, ALB ↓)、高血鈣 (Ca ↑)。如 Case 9 誤食乾癬藥膏導致維生素D中毒，Total Calcium 高達 3.55 mmol/L。"
+                },
+                {
+                    "test": "Urinalysis (尿液分析) with USG",
+                    "rationale": "確認尿液濃縮能力。尋找 Glucosuria (糖尿病、Fanconi)、Proteinuria (腎小球腎炎, 如 Case 12 的 UPC 9.8)、以及發炎或結晶。"
+                },
+                {
+                    "test": "Complete Blood Count (CBC)",
+                    "rationale": "尋找隱性感染 (如子宮蓄膿 Pyometra 引起的 PU/PD)。"
+                }
+            ],
+            "step_down_compromise": [
+                {
+                    "test": "USG 與 Urine Dipstick (尿液比重與試紙)",
+                    "rationale": "成本極低，能立刻排除糖尿病並確認尿液濃縮狀態。"
+                },
+                {
+                    "test": "Blood Glucose & BUN",
+                    "rationale": "至少排除糖尿病與嚴重尿毒症。"
+                }
+            ],
+            "add_on_investigations": [
+                {
+                    "test": "Urine Protein:Creatinine Ratio (UPC)",
+                    "rationale": "若尿檢試紙蛋白質 2+ 以上且無活躍發炎 (Inactive sediment)，定量蛋白質流失程度 (如 Case 12 確診 Protein-Losing Nephropathy)。"
+                },
+                {
+                    "test": "Endocrine Testing (T4, LDDST)",
+                    "rationale": "若生化排除了腎病、糖尿病與肝病，進一步篩檢甲狀腺亢進 (貓) 或庫興氏症 (狗)。"
+                }
+            ],
+            "defensive_rationale": "PU/PD 的背後多為系統性或內分泌疾病。單憑症狀給藥是絕對禁忌。未進行尿液分析與基礎生化，極可能漏診嚴重的代謝性疾病。",
+            "low_value_stop_doing": [
+                {
+                    "item": "Antibiotics for Subclinical Bacteriuria",
+                    "rationale": "Choosing Wisely 2025: 即使尿檢看到細菌或白血球，若無臨床症狀，治療並無益處且增加風險。"
+                }
+            ]
+        },
+        "icterus_hepatobiliary": {
+            "comprehensive_standard": [
+                {
+                    "test": "Comprehensive Biochemistry",
+                    "rationale": "量化肝膽受損程度 (ALT, AST, ALP, GGT) 與肝功能 (Bilirubin, Albumin, BUN, Cholesterol, Glucose)。如 Case 5 中 ALP 3674, ALT 5833 伴隨嚴重黃疸，高度懷疑阻塞性膽管疾病。"
+                },
+                {
+                    "test": "Complete Blood Count (CBC)",
+                    "rationale": "確認黃疸是否為 Pre-hepatic (溶血性，如 IMHA) 所引起。"
+                },
+                {
+                    "test": "Abdominal Ultrasound",
+                    "rationale": "區分 Hepatic (肝實質病變) 與 Post-hepatic (膽道阻塞、膽結石、胰臟炎壓迫)。"
+                }
+            ],
+            "step_down_compromise": [
+                {
+                    "test": "PCV / TS & Blood Smear",
+                    "rationale": "快速排除溶血性黃疸 (Pre-hepatic Icterus)。"
+                },
+                {
+                    "test": "Basic Liver Panel (ALT, ALP, Bilirubin)",
+                    "rationale": "確認是否為原發性肝膽異常。"
+                }
+            ],
+            "add_on_investigations": [
+                {
+                    "test": "Coagulation Profile (PT/aPTT)",
+                    "rationale": "嚴重肝病或膽道阻塞會影響維生素K吸收與凝血因子製造。若需進行肝臟生檢 (Biopsy) 或放置餵食管，為【強制必做】的安全性檢查。"
+                },
+                {
+                    "test": "Bile Acids (膽酸測試)",
+                    "rationale": "在沒有黃疸 (Non-icteric) 但懷疑肝功能不全 (如 PSS 門脈分流) 時進行。若已有高膽紅素血症，則測量膽酸無額外意義。"
+                }
+            ],
+            "defensive_rationale": "黃疸的鑑別診斷涵蓋了從免疫溶血到膽管破裂等極端病因。若不進行 CBC 與生化區分 Pre-hepatic, Hepatic, Post-hepatic，直接給予所謂的「保肝藥」，將導致致命延誤。"
+        },
+        "pruritus_skin_lesions": {
+            "comprehensive_standard": [
+                {
+                    "test": "Cytology (Impression smear/Tape preparation)",
+                    "rationale": "確診是否有細菌 (球菌/桿菌) 或酵母菌 (Malassezia) 感染。"
+                },
+                {
+                    "test": "Skin Scraping (Deep/Superficial)",
+                    "rationale": "排除外寄生蟲 (如 Demodex, Sarcoptes)。"
+                },
+                {
+                    "test": "Fungal Culture (DTM) / PCR",
+                    "rationale": "若懷疑皮癬菌 (Dermatophytosis)。"
+                }
+            ],
+            "step_down_compromise": [
+                {
+                    "test": "Cytology (細胞學檢查)",
+                    "rationale": "成本極低且診斷價值極高。是決定是否給予抗生素及選擇抗生素類型的唯一依據。"
+                },
+                {
+                    "test": "Skin Scraping",
+                    "rationale": "成本極低，能直接確診或排除嚴重的外寄生蟲感染。"
+                }
+            ],
+            "add_on_investigations": [
+                {
+                    "test": "Bacterial Culture & Susceptibility",
+                    "rationale": "若為反覆發作、深層膿皮症、或細胞學看到桿菌 (Rods)，強烈建議進行細菌培養 (ISCAID Pyoderma Guidelines)。"
+                },
+                {
+                    "test": "Dietary Elimination Trial",
+                    "rationale": "若排除感染與寄生蟲，懷疑食物過敏 (CAFR)。"
+                }
+            ],
+            "defensive_rationale": "在未進行細胞學檢查的情況下盲目給予經驗性抗生素 (Empirical antibiotics) 是違反 ISCAID 規範的，極易導致抗藥性 (MDR) 甚至治療失敗。"
+        },
+        "skin_mass_nodule": {
+            "comprehensive_standard": [
+                {
+                    "test": "Fine Needle Aspirate (FNA) & Cytology",
+                    "rationale": "確診腫瘤類型 (如 Mast Cell Tumor, Lipoma, Carcinoma)。"
+                },
+                {
+                    "test": "Thoracic Radiographs & Abdominal Ultrasound",
+                    "rationale": "進行臨床分期 (Clinical Staging)，確認是否有遠端轉移。"
+                },
+                {
+                    "test": "Regional Lymph Node FNA",
+                    "rationale": "評估淋巴結轉移狀況 (AAHA Oncology Guidelines)。"
+                }
+            ],
+            "step_down_compromise": [
+                {
+                    "test": "Fine Needle Aspirate (FNA) & Cytology",
+                    "rationale": "成本極低且是最關鍵的第一步。必須知道敵人是誰，才能決定手術切除的邊界 (Surgical margins)。"
+                }
+            ],
+            "add_on_investigations": [
+                {
+                    "test": "Incisional Biopsy",
+                    "rationale": "若 FNA 無法確診且腫瘤巨大或位置特殊，在根除性手術前進行。"
+                }
+            ],
+            "defensive_rationale": "絕對禁止「盲目切除 (Blind excisional biopsy)」。若未經 FNA 確認就直接切除肥大細胞瘤 (MCT) 或惡性腫瘤，常導致切除邊緣不足 (Incomplete margins)，造成腫瘤快速復發與擴散。"
+        },
+        "feline_weight_loss_polyphagia": {
+            "comprehensive_standard": [
+                {
+                    "test": "Total T4 (TT4)",
+                    "rationale": "高齡貓體重流失伴隨食慾旺盛，甲狀腺機能亢進是最常見的病因 (AAFP Feline Hyperthyroidism Guidelines)。"
+                },
+                {
+                    "test": "Comprehensive Biochemistry & Urinalysis",
+                    "rationale": "排除並存的慢性腎病 (CKD) 或糖尿病 (DM)。甲亢可能會掩蓋腎病 (Masked CKD)。"
+                },
+                {
+                    "test": "Blood Pressure (SBP)",
+                    "rationale": "甲亢貓極易併發全身性高血壓，導致視網膜剝離或靶器官損傷。"
+                }
+            ],
+            "step_down_compromise": [
+                {
+                    "test": "Total T4 & BUN/CREA",
+                    "rationale": "以最低成本確診甲亢並初步評估腎功能。"
+                },
+                {
+                    "test": "USG (尿液比重)",
+                    "rationale": "評估腎臟濃縮能力。"
+                }
+            ],
+            "add_on_investigations": [
+                {
+                    "test": "Free T4 (fT4 by ED)",
+                    "rationale": "若臨床高度懷疑甲亢但 TT4 落在正常高值 (Grey zone)。"
+                },
+                {
+                    "test": "Echocardiography",
+                    "rationale": "若聽診有心雜音 (Gallop rhythm)，評估甲亢引起的心肌肥大 (Thyrotoxic cardiomyopathy)。"
+                }
+            ],
+            "defensive_rationale": "高齡貓的體重流失極少是單純的「老了」。未進行 T4 與血壓量測，不僅錯失了可完全治癒的疾病，更可能導致突發性的失明或心衰竭。"
+        },
+        "acute_collapse_seizures": {
+            "comprehensive_standard": [
+                {
+                    "test": "Comprehensive Biochemistry",
+                    "rationale": "排除所有代謝性腦病 (Metabolic encephalopathy) 來源：如肝性腦病 (Hepatic encephalopathy, BUN↓/Chol↓)、嚴重低血糖 (Insulinoma, 幼年低血糖)、低血鈣 (Eclampsia)、高血鉀 (Addison's crisis)。"
+                },
+                {
+                    "test": "Complete Blood Count (CBC)",
+                    "rationale": "排除嚴重貧血導致的缺氧性休克或敗血症。"
+                },
+                {
+                    "test": "Urinalysis & Toxicological Screen",
+                    "rationale": "如教科書 Case 117 誤食抗凍劑 (Ethylene glycol) 引起癲癇，尿檢可見大量 Calcium oxalate 結晶。"
+                }
+            ],
+            "step_down_compromise": [
+                {
+                    "test": "Blood Glucose (BG)",
+                    "rationale": "成本極低。癲癇與休克病患的「首要必做檢查」，排除致死性低血糖。"
+                },
+                {
+                    "test": "Electrolytes (Na, K, iCa)",
+                    "rationale": "快速排除 Addison's (Na:K < 27) 與致命的低血鈣 (Hypocalcaemia)。"
+                },
+                {
+                    "test": "PCV/TS",
+                    "rationale": "快速排除隱性內出血 (如脾臟血管肉瘤破裂)。"
+                }
+            ],
+            "add_on_investigations": [
+                {
+                    "test": "Fasting & Post-prandial Bile Acids (膽酸測試)",
+                    "rationale": "若為年輕動物且基礎生化正常，高度懷疑門脈分流 (PSS) 引起的肝性腦病。"
+                },
+                {
+                    "test": "MRI & CSF Analysis",
+                    "rationale": "若血檢與毒物皆正常，懷疑原發性腦部結構異常或腦炎 (GME, NME)。"
+                }
+            ],
+            "defensive_rationale": "癲癇與休克的病因極為廣泛，從單純的低血糖到致命的中毒與腦瘤皆有可能。在未排除低血糖與電解質異常前，盲目給予抗抽搐藥 (如 Diazepam) 或類固醇是絕對禁忌。若家長預算有限，至少必須驗血糖與電解質以保命。"
+        },
+        "cavitary_effusion": {
+            "comprehensive_standard": [
+                {
+                    "test": "Fluid Analysis & Cytology (體液分析與細胞學)",
+                    "rationale": "區分 Transudate (漏出液, 如低白蛋白), Modified Transudate (如心衰竭, 門脈高壓), 或 Exudate (滲出液, 如 FIP, 膿胸, 腫瘤)。這是改變決策的最關鍵檢查。"
+                },
+                {
+                    "test": "Comprehensive Biochemistry",
+                    "rationale": "評估是否有嚴重的低白蛋白血症 (Hypoalbuminaemia) 或肝腎衰竭。"
+                },
+                {
+                    "test": "Imaging (Ultrasound / Radiographs)",
+                    "rationale": "尋找積水來源 (如心臟結構異常、腹腔腫瘤、肝臟硬化)。"
+                }
+            ],
+            "step_down_compromise": [
+                {
+                    "test": "TFAST / AFAST (重點超音波)",
+                    "rationale": "無須鎮靜，能立即確認積液位置並引導安全抽水 (Thoracocentesis / Abdominocentesis)，緩解呼吸困難。"
+                },
+                {
+                    "test": "Fluid Cytology & TP/TNCC (體液細胞學與總蛋白/總細胞數)",
+                    "rationale": "只需將抽出的水滴在玻片上染色，成本極低，但能立刻確診是否為內出血 (Haemoabdomen)、膿胸 (Pyothorax) 或 FIP (高蛋白低細胞)。"
+                },
+                {
+                    "test": "PCV/TS",
+                    "rationale": "評估病患本身的貧血與脫水狀況。"
+                }
+            ],
+            "add_on_investigations": [
+                {
+                    "test": "Fluid Triglycerides vs Serum Triglycerides",
+                    "rationale": "若抽出乳白色液體，用於確診乳糜胸 (Chylothorax)。"
+                },
+                {
+                    "test": "Fluid Creatinine vs Serum Creatinine",
+                    "rationale": "若懷疑膀胱破裂 (Uroabdomen)，積液的 CREA 會大於血清的 2 倍。"
+                }
+            ],
+            "defensive_rationale": "面對有體腔積液的病患，單憑理學檢查或甚至 X 光都無法得知「水裡有什麼」。未進行體液分析與細胞學檢查，極易誤判病因（例如將致命的膿胸誤認為單純心衰竭而給予利尿劑，將加速病患死亡）。"
+        },
+        "mitral_valve_disease_mmvd": {
+            "comprehensive_standard": [
+                {
+                    "test": "Echocardiography (心臟超音波)",
+                    "rationale": "確診 MMVD 分期 (ACVIM Stage B1/B2) 的唯一標準。"
+                },
+                {
+                    "test": "Thoracic Radiographs (胸腔X光)",
+                    "rationale": "量化心臟大小 (VHS) 並監控肺水腫。"
+                },
+                {
+                    "test": "Blood Pressure & Renal Labs",
+                    "rationale": "監控心腎併發症。"
+                }
+            ],
+            "step_down_compromise": [
+                {
+                    "test": "Thoracic Radiographs",
+                    "rationale": "若無法做超音波，VHS 測量是決定是否開始用藥 (Stage B2) 的重要替代指標。"
+                }
+            ],
+            "low_value_stop_doing": [
+                {
+                    "test": "ACE Inhibitors for Pre-clinical MMVD",
+                    "rationale": "Choosing Wisely 2025: 實證顯示對延緩心衰竭無效。應將預算優先花在 Pimobendan (若符合 EPIC 準則)。"
+                }
+            ],
+            "empirical_fallback": "若聽診有顯著心雜音且家長拒絕檢查，建議嚴密監控安靜呼吸率 (SRR)。",
+            "defensive_rationale": "MMVD 的治療關鍵在於精準分期。在未達 B2 標準前過早用藥，或在 Stage C 後漏用藥物，都會嚴重影響存活期。"
+        },
+        "osteoarthritis_chronic_pain": {
+            "comprehensive_standard": [
+                {
+                    "test": "Orthopedic & Neurological Exam",
+                    "rationale": "區分疼痛來源 (關節 vs 神經)。"
+                },
+                {
+                    "test": "Radiographs (X光)",
+                    "rationale": "確診退化性關節炎嚴重度。"
+                },
+                {
+                    "test": "Pain Scale Scoring (如 LOAD, CBPI)",
+                    "rationale": "量化疼痛對生活的影響。"
+                }
+            ],
+            "step_down_compromise": [
+                {
+                    "test": "Trial Therapy with EBM Analgesics",
+                    "rationale": "使用實證止痛藥 (如 NSAIDs) 觀察 1-2 週的臨床反應。"
+                }
+            ],
+            "low_value_stop_doing": [
+                {
+                    "item": "Glucosamine/Chondroitin Supplements",
+                    "rationale": "Choosing Wisely 2025: 實證極度不一致且偏弱，被視為「極大的金錢浪費」。建議將預算轉向減重與實證止痛藥。"
+                },
+                {
+                    "item": "Gabapentin as Sole Analgesic",
+                    "rationale": "Choosing Wisely 2025: 作為單一止痛藥的效果證據薄弱，常被過度依賴。"
+                }
+            ],
+            "empirical_fallback": "嚴格的體重管理 (Weight loss) 是 ROI 最高的介入方式。",
+            "defensive_rationale": "慢性疼痛管理應以減重與實證藥物為核心。過度依賴無效保健品會延誤病患獲得真正的疼痛緩解。"
+        }
+    }
+}
