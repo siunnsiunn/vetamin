@@ -1,18 +1,8 @@
 import sys
 import os
-import json
 
-VET_DIR = os.path.expanduser("~/.vet")
-CURRENT_PATIENT_FILE = os.path.join(VET_DIR, "current_patient.json")
-
-def save_to_json(category, key, value):
-    if os.path.exists(CURRENT_PATIENT_FILE):
-        with open(CURRENT_PATIENT_FILE, 'r') as f:
-            data = json.load(f)
-        if category not in data: data[category] = {}
-        data[category][key] = value
-        with open(CURRENT_PATIENT_FILE, 'w') as f:
-            json.dump(data, f, indent=2)
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../core')))
+import data_manager
 
 def score_fgs(scores):
     total = sum(scores)
@@ -44,6 +34,6 @@ if __name__ == "__main__":
         print(f"Result: {note}")
         
         # 自動回寫
-        save_to_json("pain_score", "scale", scale.upper())
-        save_to_json("pain_score", "score", f"{total}/{max_val}")
-        save_to_json("pain_score", "interpretation", note)
+        data_manager.update_data("pain_score.scale", scale.upper())
+        data_manager.update_data("pain_score.score", f"{total}/{max_val}")
+        data_manager.update_data("pain_score.interpretation", note)

@@ -1,6 +1,9 @@
 import sys
-import json
 import os
+import json
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../core')))
+import data_manager
 
 def evaluate_dcs(demeanour, body_weight, water_intake, urine_output):
     rubric_path = os.path.join(os.path.dirname(__file__), '..', 'references', 'alive_dcs_rubric.json')
@@ -27,36 +30,18 @@ def evaluate_dcs(demeanour, body_weight, water_intake, urine_output):
     else:
         status = rubric['interpretation']['8-12']
 
-    # Update patient SSOT
-    patient_file = os.path.expanduser("~/.vet/current_patient.json")
+    # Update patient SSOT using data_manager
     try:
-        if os.path.exists(patient_file):
-            with open(patient_file, 'r') as f:
-                data = json.load(f)
-        else:
-            data = {}
+        data_manager.update_data("management.diabetes.alive_dcs.score", total_score)
+        data_manager.update_data("management.diabetes.alive_dcs.status", status)
+        data_manager.update_data("management.diabetes.alive_dcs.components.demeanour", demeanour)
+        data_manager.update_data("management.diabetes.alive_dcs.components.body_weight", body_weight)
+        data_manager.update_data("management.diabetes.alive_dcs.components.water_intake", water_intake)
+        data_manager.update_data("management.diabetes.alive_dcs.components.urine_output", urine_output)
         
-        if "management" not in data:
-            data["management"] = {}
-        if "diabetes" not in data["management"]:
-            data["management"]["diabetes"] = {}
-            
-        data["management"]["diabetes"]["alive_dcs"] = {
-            "score": total_score,
-            "status": status,
-            "components": {
-                "demeanour": demeanour,
-                "body_weight": body_weight,
-                "water_intake": water_intake,
-                "urine_output": urine_output
-            }
-        }
-        
-        with open(patient_file, 'w') as f:
-            json.dump(data, f, indent=4)
         print(f"ALIVE DCS Evaluation Complete. Total Score: {total_score}/12.")
         print(f"Clinical Status: {status}")
-        print("Data synchronized to SSOT (current_patient.json).")
+        print("Data synchronized to SSOT (current_patient.json) via data_manager.")
     except Exception as e:
         print(f"Error writing to SSOT: {e}")
 
