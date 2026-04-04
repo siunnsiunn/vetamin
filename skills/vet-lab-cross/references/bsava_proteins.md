@@ -25,6 +25,7 @@ topic: plasma_proteins
     - GI loss (Protein-Losing Enteropathy, PLE)
     - 大面積 skin burns、severe exudative effusion (如 peritonitis)。
   - **Haemodilution**: IV fluid overload。
+
 ### Globulins (GLOB)
 - **Composition**: 包括 Alpha, Beta, Gamma (Immunoglobulins) 三大類。通常由 TP 減去 ALB 計算得出。
 - **Hypoglobulinaemia**: 

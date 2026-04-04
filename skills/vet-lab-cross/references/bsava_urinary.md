@@ -30,9 +30,6 @@ topic: urinary_renal
   - 定量 proteinuria 程度 (需排除 lower urinary tract inflammation/haemorrhage 後才有意義)。
   - **Dog**: < 0.2 normal；> 0.5 proteinuria。
   - **Cat**: < 0.2 normal；> 0.4 proteinuria。
-- **Other Urinalysis Indicators**:
-  - **Glucosuria with Normoglycaemia**: 考慮 Fanconi syndrome 或 proximal tubular damage。
-  - **Casts (管型)**: 代表 active tubular damage。
 
 ## 2. Clinical Patterns
 

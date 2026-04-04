@@ -27,7 +27,7 @@ topic: erythrocytes
 ## 2. Clinical Patterns
 
 ### 2.1 Regenerative Anaemia
-- **Characteristics**: Macrocytic, Hypochromic (MCV ↑, MCHC ↓)，且 Reticulocyte count 顯著上升 (> 80,000/µL in Dog, > 60,000/µL in Cat。通常在失血/溶血後 3-5 天才開始反應)。
+- **Characteristics**: Macrocytic, Hypochromic (MCV ↑, MCHC ↓)，且 Reticulocyte count 顯著上升 (通常在失血/溶血後 3-5 天才開始反應)。
 - **Blood Smear**: Polychromasia、Anisocytosis、Howell-Jolly bodies、Nucleated RBCs。
 - **Differentials**: 
   - **Haemorrhage**: 外部失血 (GI bleeding, trauma) 或內部失血 (Haemangiosarcoma rupture)。
