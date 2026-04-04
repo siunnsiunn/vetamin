@@ -13,7 +13,7 @@ def load_matrix():
 def rank_diagnostics(problem_key, constraint):
     matrix = load_matrix()
     if not matrix or problem_key not in matrix['presentations']:
-        print(f"❌ 找不到 '{problem_key}' 的 ROI 評估矩陣。請輸入：acute_vomiting_diarrhoea, severe_anaemia_pallor, pu_pd_polyuria_polydipsia, icterus_hepatobiliary")
+        print(f"❌ 找不到 '{problem_key}' 的 ROI 評估矩陣。請輸入：acute_vomiting_diarrhoea, severe_anaemia_pallor, pu_pd_polyuria_polydipsia, icterus_hepatobiliary, pruritus_skin_lesions, skin_mass_nodule, feline_weight_loss_polyphagia")
         return
 
     data = matrix['presentations'][problem_key]
