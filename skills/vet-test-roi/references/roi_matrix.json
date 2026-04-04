@@ -39,7 +39,17 @@
                     "rationale": "若發現 Na:K ratio < 27 或缺乏壓力性白血球相 (Lack of stress leucogram)，用於確診 Addison's Disease。"
                 }
             ],
-            "defensive_rationale": "在嘔吐病例中，跳過基礎生化與尿檢，極易漏診致命的腎衰竭、Addison's Disease 或嚴重電解質異常。若家長拒絕，必須告知其猝死風險並記錄於病歷。"
+            "defensive_rationale": "在嘔吐病例中，跳過基礎生化與尿檢，極易漏診致命的腎衰竭、Addison's Disease 或嚴重電解質異常。若家長拒絕，必須告知其猝死風險並記錄於病歷。",
+            "low_value_stop_doing": [
+                {
+                    "item": "Empirical Metronidazole",
+                    "rationale": "Choosing Wisely 2025: 對急性腹瀉無顯著臨床效益，且可能破壞腸道菌叢並增加抗藥性。"
+                },
+                {
+                    "item": "Routine Antibiotics for URI/Diarrhea",
+                    "rationale": "多為自限性或病毒性，無系統性症狀不建議使用。"
+                }
+            ]
         },
         "severe_anaemia_pallor": {
             "comprehensive_standard": [
@@ -117,7 +127,13 @@
                     "rationale": "若生化排除了腎病、糖尿病與肝病，進一步篩檢甲狀腺亢進 (貓) 或庫興氏症 (狗)。"
                 }
             ],
-            "defensive_rationale": "PU/PD 的背後多為系統性或內分泌疾病。單憑症狀給藥是絕對禁忌。未進行尿液分析與基礎生化，極可能漏診嚴重的代謝性疾病。"
+            "defensive_rationale": "PU/PD 的背後多為系統性或內分泌疾病。單憑症狀給藥是絕對禁忌。未進行尿液分析與基礎生化，極可能漏診嚴重的代謝性疾病。",
+            "low_value_stop_doing": [
+                {
+                    "item": "Antibiotics for Subclinical Bacteriuria",
+                    "rationale": "Choosing Wisely 2025: 即使尿檢看到細菌或白血球，若無臨床症狀，治療並無益處且增加風險。"
+                }
+            ]
         },
         "icterus_hepatobiliary": {
             "comprehensive_standard": [
@@ -340,6 +356,70 @@
                 }
             ],
             "defensive_rationale": "面對有體腔積液的病患，單憑理學檢查或甚至 X 光都無法得知「水裡有什麼」。未進行體液分析與細胞學檢查，極易誤判病因（例如將致命的膿胸誤認為單純心衰竭而給予利尿劑，將加速病患死亡）。"
+        },
+        "mitral_valve_disease_mmvd": {
+            "comprehensive_standard": [
+                {
+                    "test": "Echocardiography (心臟超音波)",
+                    "rationale": "確診 MMVD 分期 (ACVIM Stage B1/B2) 的唯一標準。"
+                },
+                {
+                    "test": "Thoracic Radiographs (胸腔X光)",
+                    "rationale": "量化心臟大小 (VHS) 並監控肺水腫。"
+                },
+                {
+                    "test": "Blood Pressure & Renal Labs",
+                    "rationale": "監控心腎併發症。"
+                }
+            ],
+            "step_down_compromise": [
+                {
+                    "test": "Thoracic Radiographs",
+                    "rationale": "若無法做超音波，VHS 測量是決定是否開始用藥 (Stage B2) 的重要替代指標。"
+                }
+            ],
+            "low_value_stop_doing": [
+                {
+                    "test": "ACE Inhibitors for Pre-clinical MMVD",
+                    "rationale": "Choosing Wisely 2025: 實證顯示對延緩心衰竭無效。應將預算優先花在 Pimobendan (若符合 EPIC 準則)。"
+                }
+            ],
+            "empirical_fallback": "若聽診有顯著心雜音且家長拒絕檢查，建議嚴密監控安靜呼吸率 (SRR)。",
+            "defensive_rationale": "MMVD 的治療關鍵在於精準分期。在未達 B2 標準前過早用藥，或在 Stage C 後漏用藥物，都會嚴重影響存活期。"
+        },
+        "osteoarthritis_chronic_pain": {
+            "comprehensive_standard": [
+                {
+                    "test": "Orthopedic & Neurological Exam",
+                    "rationale": "區分疼痛來源 (關節 vs 神經)。"
+                },
+                {
+                    "test": "Radiographs (X光)",
+                    "rationale": "確診退化性關節炎嚴重度。"
+                },
+                {
+                    "test": "Pain Scale Scoring (如 LOAD, CBPI)",
+                    "rationale": "量化疼痛對生活的影響。"
+                }
+            ],
+            "step_down_compromise": [
+                {
+                    "test": "Trial Therapy with EBM Analgesics",
+                    "rationale": "使用實證止痛藥 (如 NSAIDs) 觀察 1-2 週的臨床反應。"
+                }
+            ],
+            "low_value_stop_doing": [
+                {
+                    "item": "Glucosamine/Chondroitin Supplements",
+                    "rationale": "Choosing Wisely 2025: 實證極度不一致且偏弱，被視為「極大的金錢浪費」。建議將預算轉向減重與實證止痛藥。"
+                },
+                {
+                    "item": "Gabapentin as Sole Analgesic",
+                    "rationale": "Choosing Wisely 2025: 作為單一止痛藥的效果證據薄弱，常被過度依賴。"
+                }
+            ],
+            "empirical_fallback": "嚴格的體重管理 (Weight loss) 是 ROI 最高的介入方式。",
+            "defensive_rationale": "慢性疼痛管理應以減重與實證藥物為核心。過度依賴無效保健品會延誤病患獲得真正的疼痛緩解。"
         }
     }
 }
