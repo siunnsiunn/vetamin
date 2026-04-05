@@ -1,15 +1,34 @@
-import sys
 import os
+import sys
 import math
 from datetime import datetime
+_current_dir = os.path.dirname(os.path.abspath(__file__))
+while True:
+    if os.path.exists(os.path.join(_current_dir, 'core')):
+        if _current_dir not in sys.path:
+            sys.path.insert(0, _current_dir)
+        break
+    parent = os.path.dirname(_current_dir)
+    if parent == _current_dir:
+        break
+    _current_dir = parent
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../core')))
-import data_manager
+from core.error_handler import VetError, DataMissingError
+import core.data_manager as data_manager
 
 def clinical_round(value, step=0.5):
     return round(value / step) * step
 
 def calculate_modern_dm_logic(species, current_dose, weight_kg, nadir_bg, peak_bg, appetite_pct=100, is_vomiting=False):
+    if not species:
+        raise DataMissingError("species")
+    if weight_kg <= 0:
+        raise DataMissingError("weight", "Valid weight > 0 is required for DM calculation.")
+    if current_dose < 0:
+        raise DataMissingError("current_dose", "Initial dose cannot be negative.")
+    if nadir_bg <= 0 or peak_bg <= 0:
+        raise DataMissingError("nadir_bg", "Valid blood glucose values are required.")
+
     """
     V1.2: 現代化臨床版本。
     - 徹底捨棄 Somogyi 術語。
@@ -65,12 +84,10 @@ def calculate_modern_dm_logic(species, current_dose, weight_kg, nadir_bg, peak_b
 
 def update_ssot_v1_2(species, dose, nadir, rec, alert):
     try:
-        data_manager.update_data("management.diabetes.version", "V1.2 Modernized")
-        data_manager.update_data("management.diabetes.evidence", "Ettinger's 9th Ed (2021) & iCatCare 2025")
-        data_manager.update_data("management.diabetes.calculated_dose_iu", dose)
-        data_manager.update_data("management.diabetes.clinical_guidance", rec)
-        data_manager.update_data("management.diabetes.timestamp", datetime.now().isoformat())
-        
+        # Align with new nested schema
+        data_manager.update_data("management.diabetes.dose.value", dose, "IU")
+        data_manager.update_data("management.diabetes.clinical_guidance", f"V1.2 Modernized (Ettinger's 9th Ed 2021 & iCatCare 2025): {rec}")
+
         print(f"\n=== [Clinical Copilot V1.2] 現代化實證版本 ===")
         print(f"核心變動: 徹底移除 Somogyi 術語，改採 Glycemic Variability 框架。")
         print(f"決策結果: {dose} IU")
@@ -79,12 +96,20 @@ def update_ssot_v1_2(species, dose, nadir, rec, alert):
     except Exception as e:
         print(f"Error: {e}")
 
+
 if __name__ == "__main__":
-    if len(sys.argv) >= 8:
-        new_dose, rec, alert = calculate_modern_dm_logic(
-            sys.argv[1].lower(), float(sys.argv[3]), float(sys.argv[2]), 
-            float(sys.argv[4]), float(sys.argv[5]), int(sys.argv[6]), sys.argv[7] == "1"
-        )
-        update_ssot_v1_2(sys.argv[1], new_dose, float(sys.argv[4]), rec, alert)
-    else:
-        print("Usage: python3 dm_calculator.py [dog/cat] [weight] [dose] [nadir] [peak] [appetite%] [vomiting_0/1]")
+    try:
+        if len(sys.argv) >= 8:
+            new_dose, rec, alert = calculate_modern_dm_logic(
+                sys.argv[1].lower(), float(sys.argv[3]), float(sys.argv[2]), 
+                float(sys.argv[4]), float(sys.argv[5]), int(sys.argv[6]), sys.argv[7] == "1"
+            )
+            update_ssot_v1_2(sys.argv[1], new_dose, float(sys.argv[4]), rec, alert)
+        else:
+            print("Usage: python3 dm_calculator.py [dog/cat] [weight] [dose] [nadir] [peak] [appetite%] [vomiting_0/1]")
+    except VetError as e:
+        print(e.to_ai_message())
+        sys.exit(0)
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(1)

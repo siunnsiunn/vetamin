@@ -2,15 +2,32 @@ import sys
 import os
 import json
 
+# Dynamic root discovery
+_current_dir = os.path.dirname(os.path.abspath(__file__))
+while True:
+    if os.path.exists(os.path.join(_current_dir, 'core')):
+        sys.path.insert(0, _current_dir)
+        break
+    parent = os.path.dirname(_current_dir)
+    if parent == _current_dir: # root reached
+        break
+    _current_dir = parent
+
+from core.error_handler import VetError, DataMissingError
+
 def load_matrix():
     matrix_path = os.path.join(os.path.dirname(__file__), '../references/roi_matrix.json')
     if not os.path.exists(matrix_path):
-        print(f"Error: Matrix file not found at {matrix_path}")
-        return None
+        raise FileNotFoundError(f"Matrix file not found at {matrix_path}")
     with open(matrix_path, 'r') as f:
         return json.load(f)
 
 def rank_diagnostics(problem_key, constraint):
+    if not problem_key:
+        raise DataMissingError("presentation_key")
+    if not constraint:
+        raise DataMissingError("constraint", "Constraint (None|LowBudget|Fractious) is required.")
+
     matrix = load_matrix()
     if not matrix or problem_key not in matrix['presentations']:
         print(f"❌ 找不到 '{problem_key}' 的 ROI 評估矩陣。請輸入：")
@@ -61,8 +78,15 @@ def rank_diagnostics(problem_key, constraint):
     print("====================================================================")
 
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        print("Usage: python3 rank_diagnostics.py [presentation_key] [None|LowBudget|Fractious]")
-        print("Available keys: acute_vomiting_diarrhoea, severe_anaemia_pallor, pu_pd_polyuria_polydipsia, icterus_hepatobiliary, pruritus_skin_lesions, skin_mass_nodule, feline_weight_loss_polyphagia, acute_collapse_seizures, cavitary_effusion, mitral_valve_disease_mmvd, osteoarthritis_chronic_pain")
-    else:
-        rank_diagnostics(sys.argv[1], sys.argv[2])
+    try:
+        if len(sys.argv) < 3:
+            print("Usage: python3 rank_diagnostics.py [presentation_key] [None|LowBudget|Fractious]")
+            print("Available keys: acute_vomiting_diarrhoea, severe_anaemia_pallor, pu_pd_polyuria_polydipsia, icterus_hepatobiliary, pruritus_skin_lesions, skin_mass_nodule, feline_weight_loss_polyphagia, acute_collapse_seizures, cavitary_effusion, mitral_valve_disease_mmvd, osteoarthritis_chronic_pain")
+        else:
+            rank_diagnostics(sys.argv[1], sys.argv[2])
+    except VetError as e:
+        print(e.to_ai_message())
+        sys.exit(0)
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(1)

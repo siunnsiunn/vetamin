@@ -1,6 +1,17 @@
 ---
 name: vet-triage
 description: Triage and stabilization guidelines for veterinary emergencies (Respiratory, Seizures, Bleeding, Cardiovascular, and Toxicology). Use when a patient is in a crisis state to determine urgency and provide immediate stabilization steps. (vet-triage)
+requires:
+  ssot:
+    - path: patient.weight
+      freshness: 7d
+    - path: vitals
+      freshness: 1h
+  skills: []
+provides:
+  ssot:
+    - path: vitals
+  downstream_hints: [vet-history, vet-soap-gen]
 ---
 
 # Veterinary Triage and Urgent Care (/vet-triage)
@@ -25,9 +36,9 @@ description: Triage and stabilization guidelines for veterinary emergencies (Res
 ## ⚙️ Administrative Automation (Admin Mode)
 
 當 **patient** 穩定後，請主動詢問 user：
-- "需要為您 **calculate-doses** (根據 **weight** 計算急救藥物劑量) 嗎？"
-- "要執行 **gen-soap** (生成初步的 SOAP 紀錄) 嗎？"
-- "是否 **handover** 到 `/vet-history` 進行更深度的病史追蹤？"
+- "需要為您執行 `/vet-anesthesia-protocols (Generate tailored anesthesia plans and dosage calculations strictly bound to AAHA/WSAVA standards. Provide a printable OR checklist.)` (根據 **weight** 計算急救藥物劑量) 嗎？"
+- "要執行 `/vet-soap-gen (Automatically aggregate clinical data from previous skill runs and current patient context to generate professional SOAP records, referral reports, or discharge summaries. (vet-soap-gen))` (生成初步的 SOAP 紀錄) 嗎？"
+- "是否 **handover** 到 `/vet-history (Comprehensive veterinary history taking, clinical communication, and logical problem-solving protocols. Use when conducting physical exams, gathering patient histories, or applying the LCPS framework. (vet-history))` 進行更深度的病史追蹤？"
 
 ## 📝 Key Reference Files
 - [references/triage_guidelines.md](references/triage_guidelines.md)

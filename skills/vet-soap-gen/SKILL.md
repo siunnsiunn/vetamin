@@ -1,6 +1,14 @@
 ---
 name: vet-soap-gen
 description: Automatically aggregate clinical data from previous skill runs and current patient context to generate professional SOAP records, referral reports, or discharge summaries. (vet-soap-gen)
+requires:
+  ssot:
+    - path: meta.status
+      freshness: null
+  skills: [vet-history]
+provides:
+  ssot: []
+  downstream_hints: []
 ---
 
 # Veterinary SOAP Generator (/vet-soap-gen)
@@ -9,10 +17,11 @@ description: Automatically aggregate clinical data from previous skill runs and 
 
 ## 🏥 Clinical Workflow
 
-1.  **Aggregate Data**: 
+2.  **Aggregate Data**: 
     - 自動掃描 `.vet/current_patient.json` 裡的最新數據。
-    - 追蹤本次對話中跑過的技能（如 `/vet-history`, `/vet-lab-cross`, `/vet-pain-score`）。
-2.  **Select Template**:
+    - 追蹤本次對話中跑過的技能（如 `/vet-history (Comprehensive veterinary history taking, clinical communication, and logical problem-solving protocols. Use when conducting physical exams, gathering patient histories, or applying the LCPS framework. (vet-history))`, `/vet-lab-cross (Advanced laboratory data interpretation engine using IDEXX standards and BSAVA algorithms.)`, `/vet-pain-score (Professional veterinary pain assessment using FGS, Glasgow, CSU, UNESP, LOAD, and HCPI scales. Supports both acute and chronic pain for dogs and cats. (vet-pain-score))`).
+3.  **Select Template**:
+
     - **SOAP**: [Standard SOAP](assets/templates/standard_soap.md) (日常病歷)。
     - **Referral**: [Referral Report](assets/templates/referral_report.md) (轉診報告)。
     - **Discharge**: [Discharge Summary](assets/templates/discharge_summary.md) (出院摘要)。

@@ -12,6 +12,36 @@ import sys
 from dataclasses import dataclass, asdict
 from typing import Optional, List, Dict
 
+import os
+# Dynamic root discovery
+_current_dir = os.path.dirname(os.path.abspath(__file__))
+while True:
+    if os.path.exists(os.path.join(_current_dir, 'core')):
+        sys.path.insert(0, _current_dir)
+        break
+    parent = os.path.dirname(_current_dir)
+    if parent == _current_dir: # root reached
+        break
+    _current_dir = parent
+
+from core.error_handler import VetError, DataMissingError, ContraindicationError
+
+# ---------------------------------------------------------------------------
+# Interaction Matrix (Task 8.1)
+# ---------------------------------------------------------------------------
+INTERACTION_MATRIX = [
+    {"pair": ["acepromazine", "dexmedetomidine"], "warning": "Caution: Additive hypotension and profound sedation."},
+    {"pair": ["ketamine", "dexmedetomidine"], "warning": "Common combo, but watch for transient hypertension followed by bradycardia."},
+    {"pair": ["propofol", "alfaxalone"], "warning": "Co-induction risk: significant respiratory depression if combined without titration."},
+    {"pair": ["buprenorphine", "methadone"], "warning": "Antagonism risk: Buprenorphine may partially block mu-opioid effects of methadone."},
+    {"pair": ["butorphanol", "hydromorphone"], "warning": "Antagonism risk: Butorphanol may antagonize the analgesic effects of pure mu-agonists."},
+    {"pair": ["midazolam", "alfaxalone"], "warning": "Synergistic effect: significantly reduces the required induction dose."},
+    {"pair": ["atropine", "dexmedetomidine"], "warning": "Contraindicated: Anticholinergics with Alpha-2 agonists can cause severe hypertension and myocardial strain."},
+    {"pair": ["lidocaine", "propofol"], "warning": "Synergy: Lidocaine reduces propofol induction dose in dogs; monitor for bradycardia."},
+    {"pair": ["ketamine", "acepromazine"], "warning": "Synergy: Acepromazine provides muscle relaxation and counteracts ketamine-induced rigidity."},
+    {"pair": ["fentanyl", "midazolam"], "warning": "Profound synergistic sedation and respiratory depression."},
+]
+
 # ---------------------------------------------------------------------------
 # Contraindication Matrix (The "Chief's Brain")
 # ---------------------------------------------------------------------------
@@ -177,9 +207,22 @@ def calculate_dose(drug: DrugDose, weight_kg: float, reduction: float = 1.0) -> 
     return result
 
 def calculate_all(weight: float, species: str, asa: int, comorbidities: List[str], cats: List[str]=None, drug_filter: List[str]=None) -> dict:
+    if not species:
+        raise DataMissingError("species")
+    if weight <= 0:
+        raise DataMissingError("weight", "A valid weight > 0 is required for dose calculation.")
+
     db = FELINE_DRUGS if species == "cat" else CANINE_DRUGS
-    res = {"patient": {"weight": weight, "species": species, "asa": asa, "comorbidities": comorbidities}, "drugs": {}}
+    res = {
+        "patient": {"weight": weight, "species": species, "asa": asa, "comorbidities": comorbidities}, 
+        "drugs": {},
+        "interactions_flagged": []
+    }
     global_red = 0.75 if asa >= 4 else 1.0
+    
+    # Track selected drugs for interaction check
+    selected_drugs_names = []
+    
     for d in db:
         if cats and d.category not in cats: continue
         if drug_filter and not any(f.lower() in d.drug.lower() for f in drug_filter): continue
@@ -195,6 +238,17 @@ def calculate_all(weight: float, species: str, asa: int, comorbidities: List[str
         calc["is_contraindicated"], calc["warning"] = is_avoid, warn
         if d.category not in res["drugs"]: res["drugs"][d.category] = []
         res["drugs"][d.category].append(calc)
+        
+        if not is_avoid:
+            selected_drugs_names.append(d.drug.lower())
+
+    # Task 8.2: Pairwise interaction check
+    for interaction in INTERACTION_MATRIX:
+        p1, p2 = interaction["pair"]
+        # Check if both drugs in the pair are present in the calculated (non-contraindicated) list
+        if any(p1 in d for d in selected_drugs_names) and any(p2 in d for d in selected_drugs_names):
+            res["interactions_flagged"].append(f"⚠️ {p1.upper()} + {p2.upper()}: {interaction['warning']}")
+
     return res
 
 def format_output(results: dict) -> str:
@@ -202,6 +256,13 @@ def format_output(results: dict) -> str:
     if results['patient']['comorbidities']:
         lines.append(f"**Comorbidities**: {', '.join(results['patient']['comorbidities'])}")
         lines.append("")
+    
+    if results.get("interactions_flagged"):
+        lines.append("## 🚩 Drug-Drug Interactions Detected")
+        for interaction in results["interactions_flagged"]:
+            lines.append(interaction)
+        lines.append("")
+
     order = ["premedication", "induction", "maintenance", "local_block", "fluid", "emergency", "reversal"]
     for cat in order:
         if cat not in results["drugs"]: continue
@@ -213,24 +274,35 @@ def format_output(results: dict) -> str:
             warn = d["warning"] if d["warning"] else "-"
             lines.append(f"| {indicator}{d['drug']} | {d.get('calculated_range','-')} | {d.get('volume_range','-')} | {warn} | {d['notes']} |")
         lines.append("")
+    
+    # Task 8.3: Disclaimer footer
+    lines.append("---")
+    lines.append("**Disclaimer**: This dose sheet is for professional veterinary use only. Always verify doses and patient status before administration.")
     return "\n".join(lines)
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--weight", type=float, required=True)
-    parser.add_argument("--species", required=True)
-    parser.add_argument("--asa", type=int, default=2)
-    parser.add_argument("--comorbidities", type=str, default="")
-    parser.add_argument("--category", type=str)
-    parser.add_argument("--drugs", type=str)
-    parser.add_argument("--format", default="table")
-    args = parser.parse_args()
-    comorbs = [c.strip().lower() for c in args.comorbidities.split(",")] if args.comorbidities else []
-    cats = [c.strip() for c in args.category.split(",")] if args.category else None
-    d_filter = [d.strip() for d in args.drugs.split(",")] if args.drugs else None
-    results = calculate_all(args.weight, args.species, args.asa, comorbs, cats, d_filter)
-    if args.format == "json": print(json.dumps(results, indent=2, ensure_ascii=False))
-    else: print(format_output(results))
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument("--weight", type=float, required=True)
+        parser.add_argument("--species", required=True)
+        parser.add_argument("--asa", type=int, default=2)
+        parser.add_argument("--comorbidities", type=str, default="")
+        parser.add_argument("--category", type=str)
+        parser.add_argument("--drugs", type=str)
+        parser.add_argument("--format", default="table")
+        args = parser.parse_args()
+        comorbs = [c.strip().lower() for c in args.comorbidities.split(",")] if args.comorbidities else []
+        cats = [c.strip() for c in args.category.split(",")] if args.category else None
+        d_filter = [d.strip() for d in args.drugs.split(",")] if args.drugs else None
+        results = calculate_all(args.weight, args.species, args.asa, comorbs, cats, d_filter)
+        if args.format == "json": print(json.dumps(results, indent=2, ensure_ascii=False))
+        else: print(format_output(results))
+    except VetError as e:
+        print(e.to_ai_message())
+        sys.exit(0)
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

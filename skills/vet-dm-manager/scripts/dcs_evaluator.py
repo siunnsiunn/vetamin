@@ -2,10 +2,29 @@ import sys
 import os
 import json
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../core')))
-import data_manager
+# Dynamic root discovery
+_current_dir = os.path.dirname(os.path.abspath(__file__))
+while True:
+    if os.path.exists(os.path.join(_current_dir, 'core')):
+        sys.path.insert(0, _current_dir)
+        break
+    parent = os.path.dirname(_current_dir)
+    if parent == _current_dir: # root reached
+        break
+    _current_dir = parent
+
+from core.error_handler import VetError, DataMissingError
+import core.data_manager as data_manager
 
 def evaluate_dcs(demeanour, body_weight, water_intake, urine_output):
+    # Validate inputs
+    scores = {"demeanour": demeanour, "body_weight": body_weight, "water_intake": water_intake, "urine_output": urine_output}
+    for field, val in scores.items():
+        if val is None:
+            raise DataMissingError(field)
+        if val < 0 or val > 3:
+            raise VetError(f"Invalid score for {field}: {val}. Must be 0-3.", field=field)
+
     rubric_path = os.path.join(os.path.dirname(__file__), '..', 'references', 'alive_dcs_rubric.json')
     try:
         with open(rubric_path, 'r', encoding='utf-8') as f:
@@ -14,13 +33,7 @@ def evaluate_dcs(demeanour, body_weight, water_intake, urine_output):
         print(f"Error loading ALIVE DCS rubric: {e}")
         return
 
-    # Validate inputs
-    scores = [demeanour, body_weight, water_intake, urine_output]
-    if any(s < 0 or s > 3 for s in scores):
-        print("Error: Each score must be between 0 and 3.")
-        return
-
-    total_score = sum(scores)
+    total_score = sum(scores.values())
     
     # Interpretation
     if total_score <= 3:
@@ -46,14 +59,21 @@ def evaluate_dcs(demeanour, body_weight, water_intake, urine_output):
         print(f"Error writing to SSOT: {e}")
 
 if __name__ == "__main__":
-    if len(sys.argv) == 5:
-        try:
-            d = int(sys.argv[1])
-            bw = int(sys.argv[2])
-            wi = int(sys.argv[3])
-            uo = int(sys.argv[4])
-            evaluate_dcs(d, bw, wi, uo)
-        except ValueError:
+    try:
+        if len(sys.argv) == 5:
+            try:
+                d = int(sys.argv[1])
+                bw = int(sys.argv[2])
+                wi = int(sys.argv[3])
+                uo = int(sys.argv[4])
+                evaluate_dcs(d, bw, wi, uo)
+            except ValueError:
+                print("Usage: python3 dcs_evaluator.py [Demeanour 0-3] [BodyWeight 0-3] [WaterIntake 0-3] [UrineOutput 0-3]")
+        else:
             print("Usage: python3 dcs_evaluator.py [Demeanour 0-3] [BodyWeight 0-3] [WaterIntake 0-3] [UrineOutput 0-3]")
-    else:
-        print("Usage: python3 dcs_evaluator.py [Demeanour 0-3] [BodyWeight 0-3] [WaterIntake 0-3] [UrineOutput 0-3]")
+    except VetError as e:
+        print(e.to_ai_message())
+        sys.exit(0)
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(1)

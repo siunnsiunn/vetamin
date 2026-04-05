@@ -1,6 +1,15 @@
 ---
 name: vet-wellness
 description: Guidance for veterinary history taking, physical examination, and wellness care across different life stages (Kitten/Puppy to Senior). Based on AAHA/AAFP standards. (vet-wellness)
+requires:
+  ssot:
+    - path: patient.age
+      freshness: null
+  skills: []
+provides:
+  ssot:
+    - path: meta.wellness_recommendations
+  downstream_hints: [vet-history, vet-soap-gen]
 ---
 
 # Veterinary Wellness and Life Stage Care (/vet-wellness)
@@ -25,9 +34,10 @@ description: Guidance for veterinary history taking, physical examination, and w
 ## ⚙️ Administrative Automation (Admin Mode)
 
 健檢結束後，主動詢問 user：
+- "是否 **handover** 到 `/vet-history (Comprehensive veterinary history taking, clinical communication, and logical problem-solving protocols. Use when conducting physical exams, gathering patient histories, or applying the LCPS framework. (vet-history))` 進行更深度的病史追蹤？"
+- "需要執行 `/vet-soap-gen (Automatically aggregate clinical data from previous skill runs and current patient context to generate professional SOAP records, referral reports, or discharge summaries. (vet-soap-gen))` 撰寫 **referral_report** (轉診報告範本) 嗎？"
 - "需要為您生成 **vaccination_plan** (疫苗計畫) 嗎？"
 - "要提供 **client_education** (給 **owner** 的衛教資訊) 嗎？"
-- "需要撰寫 **referral_report** (轉診報告範本) 嗎？"
 
 ## 📝 Key Reference Files
 - [references/canine_life_stage.md](references/canine_life_stage.md)

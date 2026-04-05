@@ -1,6 +1,17 @@
 ---
 name: vet-anesthesia-protocols
 description: Generate tailored anesthesia plans and dosage calculations strictly bound to AAHA/WSAVA standards. Provide a printable OR checklist.
+requires:
+  ssot:
+    - path: patient.weight
+      freshness: 24h
+    - path: vitals
+      freshness: 4h
+  skills: []
+provides:
+  ssot:
+    - path: anesthesia
+  downstream_hints: [vet-soap-gen]
 ---
 
 # 💉 臨床麻醉協定 (Anesthesia Protocols)
@@ -32,6 +43,9 @@ description: Generate tailored anesthesia plans and dosage calculations strictly
 
 ### Step 4: 生成麻醉計畫表 (Generate Protocol)
 - **必須使用以下 ASCII 模板**，將數據填入對應欄位，產生一份可以直接列印的 Check List。
+
+## ⚙️ Administrative Automation (Admin Mode)
+- "是否執行 `/vet-soap-gen (Automatically aggregate clinical data from previous skill runs and current patient context to generate professional SOAP records, referral reports, or discharge summaries. (vet-soap-gen))` 生成病歷？"
 
 ## Protocol Template (列印模板)
 請精確複製以下排版格式，包含打勾框 `□`，供獸醫師列印使用：

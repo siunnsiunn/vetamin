@@ -1,6 +1,15 @@
 ---
 name: vet-lab-cross
 description: Advanced laboratory data interpretation engine using IDEXX standards and BSAVA algorithms.
+requires:
+  ssot:
+    - path: labs
+      freshness: 30d
+  skills: [vet-lab-import]
+provides:
+  ssot:
+    - path: meta.lab_patterns
+  downstream_hints: [vet-dm-manager, vet-soap-gen]
 ---
 
 # 🧪 深度檢驗判讀 (Laboratory Cross-Interpretation)
@@ -15,9 +24,12 @@ description: Advanced laboratory data interpretation engine using IDEXX standard
     - **Leukocytes**: 辨識 Stress, Excitement 與 Inflammatory Leukograms。
     - **Organ Function**: 區分肝臟 Hepatocellular vs Cholestatic Patterns，並評估 4 大肝功能指標。
     - **Renal**: 執行 IRIS 分級與投藥安全性評估。
-3.  **Logical Reasoning**: 呼叫 Python 邏輯引擎（如 `calc_renal_staging.py`）進行精密校正。
-4.  **Reporting**: 輸出判讀摘要，並詢問是否執行 `/vet-soap-gen` 生成病歷。
+3.  **Logical Reasoning (LCPS Stage 3-4)**: 
+    - 運用 [LCPS_canonical.md](../../references/LCPS_canonical.md) 進行臨床邏輯推理。
+    - 呼叫 Python 邏輯引擎（如 `calc_renal_staging.py`）進行精密校正。
+4.  **Reporting**: 輸出判讀摘要，並詢問是否執行 `/vet-soap-gen (Automatically aggregate clinical data from previous skill runs and current patient context to generate professional SOAP records, referral reports, or discharge summaries. (vet-soap-gen))` 生成病歷。
 
 ## ⚙️ 核心參考
 - **IDEXX**: 官方物種正常值範圍。
 - **BSAVA**: 第 3-12 章核心病理判讀邏輯。
+- **LCPS**: [LCPS_canonical.md](../../references/LCPS_canonical.md) Stage 3-4 鑑別診斷邏輯。

@@ -51,6 +51,43 @@ Codex 系統會自動安裝 `.system` 目錄下的技能。
 ## 🛠️ 技術架構：數據閉環
 Vetamin 採用 Python 腳本作為邏輯引擎，所有計算結果會自動回寫至 `~/.vet/current_patient.json`，確保診斷數據的一致性。系統會自動檢測數據時效（例如體重是否超過 7 天未更新），確保醫療決策的安全性。
 
+## 🔧 Runtime Prerequisites
+
+### Python dependencies
+路徑自舉已內建於 `core/` 與 `skills/*/scripts/`，但仍需安裝外部 Python 套件：
+
+```bash
+pip install pyyaml
+```
+
+- `PyYAML`: `core/workflow_validator.py` 解析 `SKILL.md` frontmatter 所需。
+- OCR 相關依賴請參考本文末的 OCR 安裝說明。
+
+### SSOT write location
+
+- 預設 SSOT 路徑為 `~/.vet/current_patient.json`
+- 在沙盒、CI 或唯讀環境中，請改用 `VET_DIR_OVERRIDE` 指向可寫目錄：
+
+```bash
+VET_DIR_OVERRIDE=/tmp/vetamin python3 core/data_manager.py init
+```
+
+## ✅ Verification
+
+本次 path bootstrap + SSOT alignment + validator + verifier 修復可用以下整合測試驗證：
+
+```bash
+python3 dev_internal/remedy_check.py
+```
+
+測試會在隔離 sandbox 中覆蓋以下關鍵路徑：
+
+- `core/data_manager.py` CLI 初始化、讀寫與嵌套路徑更新
+- `skills/vet-pain-score/scripts/score_pain_engine.py` 跨目錄執行與 `pain_score.acute` 對齊
+- `skills/vet-dm-manager/scripts/dm_calculator.py` 臨床邏輯與 `management.diabetes` 回寫
+- `core/workflow_validator.py` 容器型 SSOT 深度檢查
+- `core/soap_formatter.py` 在任意 CWD 下的模板定位與渲染
+
 ---
 
 ## 🌐 語言架構與開發規範 (Language Architecture)

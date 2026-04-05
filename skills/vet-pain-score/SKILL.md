@@ -1,6 +1,15 @@
 ---
 name: vet-pain-score
 description: Professional veterinary pain assessment using FGS, Glasgow, CSU, UNESP, LOAD, and HCPI scales. Supports both acute and chronic pain for dogs and cats. (vet-pain-score)
+requires:
+  ssot:
+    - path: vitals
+      freshness: 4h
+  skills: []
+provides:
+  ssot:
+    - path: pain_score
+  downstream_hints: [vet-anesthesia-protocols, vet-soap-gen]
 ---
 
 # Veterinary Pain Assessment Tool (/vet-pain-score)
@@ -26,11 +35,12 @@ description: Professional veterinary pain assessment using FGS, Glasgow, CSU, UN
     - **LOAD**: [Liverpool Osteoarthritis](references/load_dog.md) (運動與環境影響)。
     - **HCPI**: [Helsinki Chronic Pain Index](references/hcpi_dog.md) (行為與情緒影響)。
 
-## ⚙️ Administrative Features
+## ⚙️ Administrative Features (Admin Mode)
 
 1.  **Calculate Total Score**: AI 會引導醫師回答項目，並自動計算總分。
 2.  **Compare with Threshold**: 根據結果判斷是否需要 **Analgesia intervention**。
 3.  **Handoffs**:
+    - "是否執行 `/vet-soap-gen (Automatically aggregate clinical data from previous skill runs and current patient context to generate professional SOAP records, referral reports, or discharge summaries. (vet-soap-gen))` 生成病歷？"
     - "要將 **Pain Score** 存入 **patient context** (執行 **update-patient**) 嗎？"
     - "需要生成 **client-handout** (給飼主的慢性病說明) 嗎？"
 

@@ -1,3 +1,19 @@
+---
+name: vet-dm-manager
+description: Feline and Canine Diabetes Mellitus Management
+requires:
+  ssot:
+    - path: labs.blood.glucose
+      freshness: 1d
+    - path: management.diabetes
+      freshness: 30d
+  skills: [vet-lab-cross]
+provides:
+  ssot:
+    - path: management.diabetes.calculated_dose_iu
+  downstream_hints: [vet-soap-gen]
+---
+
 # Skill: vet-dm-manager
 ## Metadata (English)
 - **ID**: `vet-dm-manager`
@@ -22,6 +38,9 @@
 
 ### 4. 數據回寫 (SSOT Sync)
 - 腳本將自動更新 `~/.vet/current_patient.json` 中的 `management.diabetes` 區塊。
+
+## ⚙️ Administrative Automation (Admin Mode)
+- "是否執行 `/vet-soap-gen (Automatically aggregate clinical data from previous skill runs and current patient context to generate professional SOAP records, referral reports, or discharge summaries. (vet-soap-gen))` 生成病歷？"
 
 ## Medical Logic (Medical Chinglish)
 - **Nadir Control**: Target 80 - 150 mg/dL (4.4 - 8.3 mmol/L).

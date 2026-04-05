@@ -1,8 +1,26 @@
 import json
 import os
+import sys
+import copy
 from datetime import datetime, timedelta
 
-VET_DIR = os.path.expanduser("~/.vet")
+# Dynamic root discovery
+_current_dir = os.path.dirname(os.path.abspath(__file__))
+_project_root = None
+while True:
+    if os.path.exists(os.path.join(_current_dir, 'core')):
+        _project_root = _current_dir
+        if _project_root not in sys.path:
+            sys.path.insert(0, _project_root)
+        break
+    parent = os.path.dirname(_current_dir)
+    if parent == _current_dir:
+        break
+    _current_dir = parent
+
+from core.error_handler import DataMissingError, DataStaleError
+
+VET_DIR = os.getenv("VET_DIR_OVERRIDE", os.path.expanduser("~/.vet"))
 CURRENT_PATIENT_FILE = os.path.join(VET_DIR, "current_patient.json")
 BACKUP_DIR = os.path.join(VET_DIR, "backups")
 
@@ -26,19 +44,39 @@ DEFAULT_SCHEMA = {
         "bio": {},
         "ua": {}
     },
+    "pain_score": {
+        "acute": {"value": 0, "scale": "", "interpretation": "", "updated_at": ""},
+        "chronic": {"value": 0, "scale": "", "interpretation": "", "updated_at": ""}
+    },
+    "management": {
+        "diabetes": {
+            "insulin_type": "",
+            "dose": {"value": 0, "unit": "IU", "updated_at": ""},
+            "frequency": "",
+            "last_curve_results": {}
+        }
+    },
+    "anesthesia": {
+        "risk_category": "", # ASA I-V
+        "protocol": {},
+        "premeds": [],
+        "induction": "",
+        "maintenance": ""
+    },
+    "diagnostic_plan": {
+        "recommended_tests": [], # { "test": "ALT", "priority": "High", "reason": "..." }
+        "roi_ranking": []
+    },
     "meta": {"last_update": "", "status": "active"}
 }
 
 # 靜態欄位名單 (不需要更新時間的欄位)
-STATIC_PATHS = ["patient.name", "patient.species", "patient.breed", "patient.sex"]
-
-class DataStaleError(Exception):
-    """Exception raised when requested data is older than the allowed maximum age."""
-    pass
-
-class DataMissingError(Exception):
-    """Exception raised when requested data is missing."""
-    pass
+STATIC_PATHS = [
+    "patient.name", "patient.species", "patient.breed", "patient.sex",
+    "anesthesia.risk_category", "management.diabetes.insulin_type", "management.diabetes.frequency",
+    "pain_score.acute.scale", "pain_score.chronic.scale",
+    "pain_score.acute.interpretation", "pain_score.chronic.interpretation"
+]
 
 def _parse_value(val):
     if isinstance(val, str):
@@ -66,9 +104,18 @@ def _set_nested(data, path, val):
         current = current[k]
     current[keys[-1]] = val
 
+def deep_merge(base, update):
+    """Recursively merges update into base."""
+    for key, value in update.items():
+        if key in base and isinstance(base[key], dict) and isinstance(value, dict):
+            deep_merge(base[key], value)
+        else:
+            base[key] = value
+    return base
+
 def init_patient():
     if not os.path.exists(VET_DIR): os.makedirs(VET_DIR)
-    schema = DEFAULT_SCHEMA.copy()
+    schema = copy.deepcopy(DEFAULT_SCHEMA)
     schema["meta"]["last_update"] = datetime.now().isoformat()
     with open(CURRENT_PATIENT_FILE, 'w') as f:
         json.dump(schema, f, indent=2)
@@ -77,9 +124,16 @@ def init_patient():
 def load_data():
     if not os.path.exists(CURRENT_PATIENT_FILE):
         init_patient()
+    
     with open(CURRENT_PATIENT_FILE, 'r') as f:
-        try: return json.load(f)
-        except json.JSONDecodeError: return DEFAULT_SCHEMA.copy()
+        try:
+            stored_data = json.load(f)
+        except json.JSONDecodeError:
+            stored_data = {}
+    
+    # Reconcile existing patient files with expanded schema
+    full_data = copy.deepcopy(DEFAULT_SCHEMA)
+    return deep_merge(full_data, stored_data)
 
 # 2. 精準的巢狀寫入引擎 (Dot-Notation Support)
 def update_data(path, value, unit=""):
@@ -105,9 +159,27 @@ def update_data(path, value, unit=""):
         _set_nested(data, path, value)
         
     else:
-        # 動態欄位自動包裝時間戳記
-        item = {"value": value, "unit": unit, "updated_at": now_iso}
-        _set_nested(data, path, item)
+        # Dynamic field wrapping
+        # If the path already ends in .value, .scale, .unit, .interpretation, etc., 
+        # it's likely a manual update to a subfield, don't wrap it.
+        keys = path.split('.')
+        leaf = keys[-1]
+        
+        if leaf in ["value", "scale", "unit", "interpretation", "updated_at"]:
+            _set_nested(data, path, value)
+            if leaf == "value":
+                parent_path = ".".join(keys[:-1])
+                try:
+                    parent_node = _get_nested(data, parent_path)
+                    if isinstance(parent_node, dict) and "updated_at" in parent_node:
+                        parent_node["updated_at"] = now_iso
+                except (KeyError, ValueError):
+                    pass
+        else:
+            # Determine if we should use 'scale' or 'unit'
+            label = "scale" if "pain_score" in keys else "unit"
+            item = {"value": value, label: unit, "updated_at": now_iso}
+            _set_nested(data, path, item)
         
     data["meta"]["last_update"] = now_iso
     with open(CURRENT_PATIENT_FILE, 'w') as f:
